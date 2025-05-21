@@ -1,0 +1,5 @@
+{
+    "case_id": "string",
+    "embedding_vector": "list[float]",
+    "timestamp": "timestamp"
+  }

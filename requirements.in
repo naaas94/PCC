@@ -1,0 +1,34 @@
+# requirements.in — direct dependencies only
+# Placeholder to be updated as we go. 
+
+# Core data & ML
+pandas
+numpy
+scikit-learn
+
+# Embedding and NLP
+torch
+transformers
+
+# Google Cloud
+google-cloud-bigquery
+
+# Validation & utilities
+pydantic
+python-dotenv
+rich
+
+# Logging (optional enrichment)
+loguru
+
+# CLI tooling
+click
+
+# YAML config support
+pyyaml
+
+# Testing\pytest
+pytest-mock
+
+
+

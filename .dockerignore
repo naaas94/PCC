@@ -1,0 +1,7 @@
+__pycache__/
+.git/
+.mypy_cache/
+*.pyc
+*.pkl
+.env
+*.log
