@@ -1,0 +1,20 @@
+{
+  "model_version": "v0.1",
+  "trained_on": "2025-05-20",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "label_mapping": {
+    "NOT_PC": 0,
+    "PC": 1
+  },
+  "train_shape": [
+    870,
+    384
+  ],
+  "classifier": "LogisticRegression",
+  "config": {
+    "solver": "liblinear",
+    "penalty": "l1",
+    "C": 10
+  },
+  "notes": "MVP placeholder model trained on SMOTE-balanced MiniLM embeddings."
+}

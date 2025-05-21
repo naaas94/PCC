@@ -1,0 +1,10 @@
+{
+    "case_id": "string",
+    "predicted_label": "string",
+    "subtype_label": "string|null",
+    "confidence": "float",
+    "model_version": "string",
+    "embedding_model": "string",
+    "inference_timestamp": "timestamp",
+    "prediction_notes": "string|null"
+  }

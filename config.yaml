@@ -1,0 +1,26 @@
+# config.yaml — pipeline configuration for PCC
+
+bq:
+  # Input snapshot (daily partitioned)
+  source_table: cs-analytics-dev.case_history.v2_case_history_snapshot_* #5/20 changed to actual dataset. 
+
+  # Output table destination (MVP-ready)
+  output_table: cs-analytics-dev.pcc.daily_predictions
+  
+models:
+  # Local paths to model artifacts (can later be migrated to GCS)
+  classifier_path: src/models/pcc_v0.1.1.pkl #placeholder -updated 5/20 w trained model
+  # label_encoder_path: models/label_encoder.pkl #placeholder # 5/20 took it out to test pipeline
+
+  # Embedding model used to generate vectors in snapshot
+  embedding_model: all-MiniLM-L6-v2
+
+runtime:
+  # Runtime mode: dev | prod | dry_run (used for CLI behavior and Flyte switching)
+  mode: dev
+
+  # Prevent writing to BigQuery if true (used during development/testing)
+  dry_run: false
+
+  # Date partition to process — format: YYYYMMDD (used for snapshot resolution)
+  partition_date: 20250430
