@@ -19,7 +19,7 @@ def log_inference_run(
     dropped_cases: int,
     status: str = "success",
     notes: str = "MVP run log",
-    table: str = "cs-analytics-dev.pcc.inference_logs"
+    table: str = "redacted"
 ):
     """
     Logs a single inference run to BigQuery monitoring table.
