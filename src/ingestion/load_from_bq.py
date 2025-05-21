@@ -19,7 +19,7 @@ def load_snapshot_partition(partition_date: str, config: dict) -> pd.DataFrame:
 
     # Build dynamic table names based on config + partition date
     case_table = config["bq"]["source_table"].replace("*", partition_date)
-    embedding_table = f"cs-analytics-dev.vector_embeddings.snapshot_semantic_search_embeddings_{partition_date}"
+    embedding_table = f"redacted_{partition_date}"
 
     query = f"""
         SELECT 
