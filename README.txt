@@ -124,7 +124,7 @@ ________________
 CONFIGURATION
 File: config/config.yaml
 bq:
-  source_table: your_dataset.v2_case_history_snapshot_*
+  source_table: your_dataset.redacted_*
   output_table: your_dataset.pcc_predictions
 models:
   classifier_path: models/pcc_v0.1.1.pkl
