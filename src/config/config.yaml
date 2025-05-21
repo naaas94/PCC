@@ -2,10 +2,10 @@
 
 bq:
   # Input snapshot (daily partitioned)
-  source_table: cs-analytics-dev.case_history.v2_case_history_snapshot_* #5/20 changed to actual dataset. 
+  source_table: redacted #5/20 changed to actual dataset. 
 
   # Output table destination (MVP-ready)
-  output_table: cs-analytics-dev.pcc.daily_predictions
+  output_table: redacted
   
 models:
   # Local paths to model artifacts (can later be migrated to GCS)
