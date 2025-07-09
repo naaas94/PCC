@@ -14,7 +14,11 @@ def sample_data():
     """Load sample data for testing"""
     with open('tests/fixtures/sample_data.json', 'r') as f:
         data = json.load(f)
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data)
+    # Convert timestamp to pandas datetime
+    if 'timestamp' in df.columns:
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
+    return df
 
 @pytest.fixture
 def mock_bigquery_client():
