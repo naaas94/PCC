@@ -1,13 +1,13 @@
 {
   "model_version": "v0.1",
-  "trained_on": "2025-05-20",
+  "trained_on": "2025-07-08T20:20:29.622560",
   "embedding_model": "all-MiniLM-L6-v2",
   "label_mapping": {
     "NOT_PC": 0,
     "PC": 1
   },
   "train_shape": [
-    870,
+    100,
     384
   ],
   "classifier": "LogisticRegression",
@@ -16,5 +16,5 @@
     "penalty": "l1",
     "C": 10
   },
-  "notes": "MVP placeholder model trained on SMOTE-balanced MiniLM embeddings."
+  "notes": "Dummy model trained on synthetic data for testing"
 }

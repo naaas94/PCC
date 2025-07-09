@@ -1,4 +1,5 @@
-# config.yaml — pipeline configuration for PCC
+# config.yaml.example — pipeline configuration for PCC
+# Copy this file to src/config/config.yaml and update with your values
 
 bq:
   # Input snapshot (daily partitioned)
@@ -22,4 +23,4 @@ runtime:
   dry_run: true
 
   # Date partition to process — format: YYYYMMDD (used for snapshot resolution)
-  partition_date: 20250101
+  partition_date: 20250101 
