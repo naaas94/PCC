@@ -38,5 +38,5 @@ def predict(embedding: np.ndarray, metadata: Optional[Dict] = None) -> dict:
         "embedding_model": EMBEDDING_MODEL,
         "inference_timestamp": pd.Timestamp.utcnow(),
         "prediction_notes": "LogReg v0.1 placeholder",
-        "subtype_label": None  # Not used in MVP
+        "subtype_label": pd.NA  # Not used in MVP - use pandas NA for nullable string
     }

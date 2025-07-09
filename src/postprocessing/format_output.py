@@ -1,6 +1,7 @@
 # src/postprocessing/format_output.py
 
 import pandas as pd
+from typing import Dict
 from utils.schema_validator import validate_schema
 from utils.logger import get_logger
 
@@ -14,8 +15,12 @@ def format_predictions(df: pd.DataFrame, schema_path: str = "schemas/output_sche
     - Ensure output column order and integrity
     - Log output status
     """
-    label_map: Dict[int, str] = {0: "NOT_PC", 1: "PC"} #5/21 added this as a placeholder for mvp, will change it for label_encoder layer when subtypes are introduced
-    df["predicted_label"] = df["predicted_label"].astype(int).map(label_map).astype("string")
+    # Map numeric predictions to human-readable labels
+    label_map = {"0": "NOT_PC", "1": "PC"} #5/21 added this as a placeholder for mvp, will change it for label_encoder layer when subtypes are introduced
+    df["predicted_label"] = df["predicted_label"].replace(label_map).astype("string")
+    
+    # Ensure subtype_label is properly formatted as nullable string
+    df["subtype_label"] = df["subtype_label"].astype("string[pyarrow]")
     
     # Validate against output schema
     validate_schema(df, schema_path=schema_path)
