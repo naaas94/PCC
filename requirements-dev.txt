@@ -19,3 +19,5 @@ sphinx-rtd-theme>=1.2.0
 # Development tools
 pre-commit>=3.0.0
 tox>=4.0.0 
+
+pyarrow>=10.0.1 
