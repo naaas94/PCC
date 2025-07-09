@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 from datetime import datetime
-from src.inference.classifier_interface import predict
+from inference.classifier_interface import predict
 from utils.logger import get_logger
 
 logger = get_logger()
