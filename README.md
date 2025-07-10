@@ -1,10 +1,16 @@
 # PCC — PRIVACY CASE CLASSIFIER
 
-**Author:** Ale Garay  
+**Original Author:** Alejandro Garay  
 **Project Type:** End-to-End ML Inference Pipeline  
 **Stack:** BigQuery • MiniLM • Scikit-learn • Pandas • Pydantic • Docker  
 **Use Case:** Classification of customer support messages into privacy-related intent categories using precomputed sentence embeddings and a swappable inference module.  
 **Status:** MVP-first, production-minded.
+
+---
+
+## Attribution
+
+This project was originally created by Alejandro Garay as a privacy case classification system for GDPR/CCPA compliance. For contributions, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -141,126 +147,4 @@ python scripts/run_pipeline.py --partition 20250403 --mode dev
 
 ### Development Commands
 
-```bash
-# Run tests
-make test
-
-# Format code
-make format
-
-# Lint code
-make lint
-
-# Run pipeline
-make run
-
-# Clean artifacts
-make clean
 ```
-
----
-
-## CONFIGURATION
-
-**File:** `src/config/config.yaml`
-
-```yaml
-bq:
-  source_table: your_dataset.redacted_*
-  output_table: your_dataset.pcc_predictions
-models:
-  classifier_path: src/models/pcc_v0.1.1.pkl
-  embedding_model: all-MiniLM-L6-v2
-runtime:
-  mode: dev
-  dry_run: true
-  partition_date: 20250403
-```
-
-**Environment Variables:** See `.env.example` for required BigQuery credentials and configuration.
-
----
-
-## TESTING
-
-Run the test suite:
-
-```bash
-pytest tests/
-```
-
-Tests cover:
-* Ingestion and schema validation
-* Inference pipeline components
-* Mock fixtures and synthetic data
-* End-to-end pipeline execution
-
----
-
-## STATUS AND ROADMAP
-
-### Current Status (MVP)
-
-**Completed:**
-* Modular pipeline architecture (ingestion, preprocessing, inference, postprocessing, monitoring)
-* Schema validation for input/output data
-* Synthetic data generation and dummy model
-* Basic CI/CD with GitHub Actions
-* Docker containerization
-* Comprehensive logging and error handling
-
-**Known Limitations:**
-* Dummy model lacks semantic complexity — real model integration pending
-* Upstream embedding logic assumed to be stable
-* Monitoring and alerting system under development
-* BigQuery integration requires production credentials
-
-### Sample Results
-
-```
-🚀 Running PCC Pipeline with Sample Data
-==================================================
-✅ Pipeline completed successfully!
-
-📈 Results Summary:
-Total cases processed: 100
-Model version: v0.1
-Embedding model: all-MiniLM-L6-v2
-
-Sample predictions:
-       case_id predicted_label  confidence
-0  CASE_000000          NOT_PC    0.994793
-1  CASE_000001              PC    0.981397
-2  CASE_000002              PC    0.973360
-```
-
-### Model Performance
-
-For detailed model analysis and training process, see [`docs/model_analysis.ipynb`](docs/model_analysis.ipynb).
-
-**Key Performance Metrics:**
-- **ROC-AUC: 0.998** - Excellent class separability
-- **PR-AUC: 0.998** - Outstanding performance on imbalanced dataset
-- **F1-Score: 0.97** - Balanced precision and recall
-- **Accuracy: 97%** - High overall performance
-
----
-
-## DESIGN PRINCIPLES
-
-* Each component must be testable in isolation.
-* Pipeline must fail loudly and visibly when assumptions break.
-* Output tables must always be schema-compliant and versioned.
-* Prediction functions must be swappable, with zero side effects.
-* Monitoring is not an add-on. It is part of the system design.
-* Treat Docker as runtime notebooks — identical outputs, different environments.
-
----
-
-## CONTRIBUTING
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and contribution process.
-
-## LICENSE
-
-[LICENSE](https://github.com/naaas94/PCC/blob/main/LICENSE) 
