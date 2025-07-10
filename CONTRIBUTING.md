@@ -1,136 +1,55 @@
-# CONTRIBUTING TO PCC
+# Contributing to PCC
 
-Development guidelines for the Privacy Case Classifier project.
+## Attribution
 
----
+This project was originally created by Alejandro Garay. When contributing, please:
 
-## SETUP
+1. **Maintain Original Architecture**: Preserve the modular pipeline design and design principles established by the original creator
+2. **Credit Original Work**: Reference the original implementation in your contributions
+3. **Follow Established Standards**: Adhere to the coding standards and documentation style already in place
+4. **Respect Privacy Objectives**: Ensure all changes align with the project's GDPR/CCPA compliance goals
 
-### Prerequisites
-* Python 3.10+
-* Git
-* Docker (optional)
+## Development Guidelines
 
-### Local Environment
-```bash
-git clone <repository-url>
-cd PCC
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-cp .env.example .env
-cp src/config/config.yaml.example src/config/config.yaml
-```
+### Code Style
+- Follow the existing Python style (PEP 8)
+- Maintain the modular pipeline architecture
+- Add comprehensive tests for new functionality
+- Update documentation for any architectural changes
 
----
-
-## DEVELOPMENT WORKFLOW
-
-### Code Quality
-* Follow PEP 8 style guidelines
-* Use type hints for function parameters
-* Keep functions focused and testable
-* Document complex logic with clear comments
+### Pull Request Process
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ### Testing
-```bash
-# Run all tests
-pytest tests/
+- Run the test suite before submitting: `make test`
+- Ensure all new code has corresponding tests
+- Maintain the existing test coverage standards
 
-# Run with coverage
-pytest tests/ --cov=src --cov-report=html
+### Documentation
+- Update README.md for significant changes
+- Add docstrings to new functions and classes
+- Update any relevant documentation in the `docs/` folder
 
-# Test pipeline
-python scripts/run_pipeline.py --sample
-```
+## Attribution in Commits
 
-### Code Quality Checks
-```bash
-# Format code
-black src/ tests/ scripts/
+When making contributions, please:
+- Use clear, descriptive commit messages
+- Reference the original work when building upon it
+- Maintain the professional tone established in the documentation
 
-# Lint code
-flake8 src/ tests/ scripts/
+## Questions or Issues?
 
-# Run all checks
-make check
-```
-
----
-
-## CONTRIBUTION PROCESS
-
-### 1. Development
-* Create feature branches from `main`
-* Use descriptive branch names: `feature/component-name`
-* Make atomic commits with clear messages
-* Test changes thoroughly before submission
-
-### 2. Pull Request
-* Create PR with clear title and description
-* Reference related issues
-* Include test results
-* Request review from maintainers
-
-### 3. Review
-* Code review required for all changes
-* Address feedback and suggestions
-* Ensure CI/CD pipeline passes
-* Update documentation as needed
+If you have questions about contributing or encounter issues:
+1. Check the existing documentation
+2. Review the project's design principles
+3. Open an issue with a clear description of the problem or question
 
 ---
 
-## ARCHITECTURE GUIDELINES
-
-### Component Design
-* Each component must be testable in isolation
-* Maintain clear module boundaries
-* Use dependency injection for external services
-* Implement proper error handling and logging
-
-### Pipeline Components
-**Ingestion:** Validate input data against schemas
-**Preprocessing:** Validate embedding vectors and shapes
-**Inference:** Implement swappable model interface
-**Postprocessing:** Enforce output schema compliance
-**Output:** Write to configured destinations
-**Monitoring:** Log pipeline execution and statistics
-
-### Configuration Management
-* Use environment variables for sensitive data
-* Validate configuration at startup
-* Provide clear error messages for missing configuration
-
----
-
-## TESTING STRATEGY
-
-### Test Types
-**Unit Tests:** Test individual functions and classes
-**Integration Tests:** Test component interactions
-**End-to-End Tests:** Test complete pipeline execution
-
-### Test Data
-* Use synthetic data for reproducible tests
-* Include edge cases and error scenarios
-* Maintain test data schemas
-
----
-
-## SECURITY GUIDELINES
-
-* Never commit sensitive data or credentials
-* Use environment variables for secrets
-* Validate input data to prevent injection attacks
-* Follow secure coding practices
-
----
-
-## SUPPORT
-
-For questions or issues:
-* Check existing documentation
-* Review open and closed issues
-* Contact maintainers for urgent issues
-* Provide detailed information when reporting problems
+**Remember**: This project serves a critical compliance function. All contributions must maintain the high standards of reliability, auditability, and transparency established by the original creator.
 
  
