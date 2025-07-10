@@ -1,7 +1,7 @@
 # Authors
 
 ## Original Creator
-- **Alejandro Garay** - Initial architecture and implementation - [@alejandrog](https://github.com/alejandrog)
+- **Alejandro Garay** - Initial architecture and implementation - [@naaas94](https://github.com/naaas94)
 
 ## Contributors
 - [Future contributors will be added here]
