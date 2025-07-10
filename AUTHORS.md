@@ -18,8 +18,6 @@ This project was originally created by Alejandro Garay as a privacy case classif
 4. Ensure all changes align with the project's privacy and compliance objectives
 
 For contribution guidelines, please see [CONTRIBUTING.md](CONTRIBUTING.md). 
-noteId: "9d906db05db411f081242757ac8a5dde"
-tags: []
 
 ---
 
