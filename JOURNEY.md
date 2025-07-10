@@ -47,11 +47,13 @@ To win trust, I used analogies: “Think of the model as a legal triage nurse—
 
 ---
 
-## What’s Next
+## What's Next
 
-- Real data integration
-- Embedding generation in-pipeline
-- Orchestration, monitoring, and continuous delivery
+- **Production-Ready PCC**: Fully operationalized, standalone version of the Privacy Case Classifier—integrating real data ingestion, in-pipeline embedding creation, robust monitoring, and continuous delivery. This will serve as the foundation for reliable, auditable privacy case classification at scale.
+
+- **RAG-Enhanced System**: Implementation of a retrieval-augmented generation pipeline, leveraging a centralized internal knowledge base, semantic search, and prompt chaining. This system will dynamically inject regulatory and historical context into each inference, enabling transparent, reference-backed reasoning and rapid adaptation to new requirements.
+
+- **Agent-Based AI Architecture**: Deployment of a multi-agent system with specialized reasoning agents, orchestrated workflows, and RLHF-driven continuous improvement. This architecture will transform the classifier into an autonomous, collaborative legal reasoning engine—capable of deep analysis, explainability, and ongoing learning from human feedback.
 
 ---
 
