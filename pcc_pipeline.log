@@ -40,3 +40,30 @@
 2025-07-14 09:26:03 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
 2025-07-14 09:26:04 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
 2025-07-14 09:26:13 — pcc_pipeline — WARNING — Failed to log pipeline run to monitoring system
+2025-07-14 09:28:34 — pcc_pipeline — INFO — Configuration loaded
+2025-07-14 09:28:34 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-14 09:28:34 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-14 09:28:35 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:28:35 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-14 09:28:35 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:28:36 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:28:42 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-14 09:28:45 — pcc_pipeline — WARNING — Failed to log pipeline run to monitoring system
+2025-07-14 09:29:50 — pcc_pipeline — INFO — Configuration loaded
+2025-07-14 09:29:50 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-14 09:29:50 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-14 09:29:51 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:29:51 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-14 09:29:51 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:29:51 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:29:58 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-14 09:30:02 — pcc_pipeline — WARNING — Failed to log pipeline run to monitoring system
+2025-07-14 09:31:29 — pcc_pipeline — INFO — Configuration loaded
+2025-07-14 09:31:29 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-14 09:31:29 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-14 09:31:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:31:30 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-14 09:31:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:31:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-14 09:31:38 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-14 09:31:42 — pcc_pipeline — WARNING — Failed to log pipeline run to monitoring system

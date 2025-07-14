@@ -17,3 +17,42 @@
 2025-07-14 09:26:13 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
 2025-07-14 09:26:13 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
 2025-07-14 09:26:13 — pcc_bigquery — ERROR — [BQ] Monitoring log schema validation failed: Column 'ingestion_time' is not timestamp
+2025-07-14 09:28:36 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:28:36 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:28:41 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:28:41 — pcc_bigquery — INFO — [BQ] Table now contains 200 total rows
+2025-07-14 09:28:42 — pcc_bigquery — INFO — [BQ] Found 200 records written in the last hour
+2025-07-14 09:28:42 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:28:42 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-07-14 09:28:42 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '104a2bc7-2e12-4406-98c8-f722b36912a3', 'model_version': 'v0.1', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': 'sample_data', 'runtime_ts': Timestamp('2025-07-14 12:28:42.927924+0000', tz='UTC'), 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': Timestamp('2025-07-14 12:28:42.927924+0000', tz='UTC'), 'processing_duration_seconds': 0.005005598068237305, 'error_message': None}
+2025-07-14 09:28:42 — pcc_bigquery — ERROR — [BQ] Exception logging inference run (attempt 1): Object of type Timestamp is not JSON serializable
+2025-07-14 09:28:42 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:28:43 — pcc_bigquery — ERROR — [BQ] Exception logging inference run (attempt 2): Object of type Timestamp is not JSON serializable
+2025-07-14 09:28:43 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:28:45 — pcc_bigquery — ERROR — [BQ] Exception logging inference run (attempt 3): Object of type Timestamp is not JSON serializable
+2025-07-14 09:29:51 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:29:51 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:29:56 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:29:56 — pcc_bigquery — INFO — [BQ] Table now contains 300 total rows
+2025-07-14 09:29:58 — pcc_bigquery — INFO — [BQ] Found 300 records written in the last hour
+2025-07-14 09:29:58 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:29:58 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-07-14 09:29:58 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': 'b7c075ff-b753-4d3a-a4de-45114044154d', 'model_version': 'v0.1', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': 'sample_data', 'runtime_ts': Timestamp('2025-07-14 12:29:58.254938+0000', tz='UTC'), 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': Timestamp('2025-07-14 12:29:58.254938+0000', tz='UTC'), 'processing_duration_seconds': 0.005002260208129883, 'error_message': None}
+2025-07-14 09:29:59 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 1): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:29:59 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:30:00 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 2): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:30:00 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:30:02 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 3): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:31:30 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:31:30 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:31:36 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:31:36 — pcc_bigquery — INFO — [BQ] Table now contains 400 total rows
+2025-07-14 09:31:38 — pcc_bigquery — INFO — [BQ] Found 400 records written in the last hour
+2025-07-14 09:31:38 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:31:38 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-07-14 09:31:38 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': 'fdaa1eba-e301-41bf-9bca-a1e8d64b479c', 'model_version': 'v0.1', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': 'sample_data', 'runtime_ts': Timestamp('2025-07-14 12:31:38.690675+0000', tz='UTC'), 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': Timestamp('2025-07-14 12:31:38.690675+0000', tz='UTC'), 'processing_duration_seconds': 0.003009319305419922, 'error_message': None}
+2025-07-14 09:31:39 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 1): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:31:39 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:31:40 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 2): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:31:40 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:31:42 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 3): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
