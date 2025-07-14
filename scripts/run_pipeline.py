@@ -92,8 +92,11 @@ def run_pipeline_with_sample_data():
 
 def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev"):
     """Execute pipeline with BigQuery data"""
+    import time
+    
     logger = get_logger()
     config = load_config(mode)
+    start_time = time.time()
 
     logger.info("Starting PCC pipeline with BigQuery data")
     logger.info(f"Partition date: {partition_date}")
@@ -121,15 +124,23 @@ def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev"):
     logger.info("Output schema validated")
 
     # Output
-    if config["runtime"].get("dry_run", True):
+    if config["runtime"].get("dry_run", False):
         display_results(df_formatted, config)
     else:
-        from output.write_to_bq import write_to_bigquery
-        write_to_bigquery(df_formatted)
-        logger.info("Predictions written to BigQuery")
+        from output.write_to_bq import write_to_bigquery, verify_bigquery_write
+        success = write_to_bigquery(df_formatted)
+        if success:
+            logger.info("Predictions written to BigQuery successfully")
+            # Verify the write operation
+            verify_success = verify_bigquery_write(df_formatted)
+            if not verify_success:
+                logger.warning("BigQuery write verification failed")
+        else:
+            logger.error("Failed to write predictions to BigQuery")
+            status = "failed"
     
     # Monitoring
-    log_pipeline_run(config, partition_date, len(df_raw), len(df_valid), len(df_formatted))
+    log_pipeline_run(config, partition_date, len(df_raw), len(df_valid), len(df_formatted), start_time)
     
     return df_formatted
 
@@ -158,26 +169,44 @@ def display_results(df: pd.DataFrame, config: dict):
     
     print("\n✅ Pipeline completed successfully!")
     
-    if config["runtime"].get("dry_run", True):
-        print("💡 This was a dry run. Set DRY_RUN=false to write to BigQuery.")
+    if config["runtime"].get("dry_run", False):
+        print("💡 This was a dry run. Set DRY_RUN=true to prevent writing to BigQuery.")
 
 def log_pipeline_run(config: dict, partition_date: str, total_cases: int, 
-                    passed_validation: int, output_cases: int):
+                    passed_validation: int, output_cases: int, start_time=None, status="success"):
     """Log pipeline execution to monitoring system"""
     try:
-        from monitoring.log_inference_run import log_inference_run
+        from monitoring.log_inference_run import log_inference_run, verify_monitoring_log
+        import time
         
-        status = "success" if output_cases > 0 else "empty"
-        log_inference_run(
+        if status == "success" and output_cases > 0:
+            run_status = "success"
+        elif output_cases == 0:
+            run_status = "empty"
+        else:
+            run_status = status
+            
+        processing_duration = time.time() - start_time if start_time else 0.0
+        
+        success = log_inference_run(
             partition_date=partition_date,
             model_version=config["models"].get("model_version", "unknown"),
             embedding_model=config["models"].get("embedding_model", "unknown"),
             total_cases=total_cases,
             passed_validation=passed_validation,
             dropped_cases=total_cases - passed_validation,
-            status=status,
-            notes=f"Pipeline run with status: {status}"
+            status=run_status,
+            notes=f"Pipeline run with status: {run_status}",
+            processing_duration_seconds=processing_duration
         )
+        
+        if success:
+            logger = get_logger()
+            logger.info("Pipeline run logged to monitoring system successfully")
+        else:
+            logger = get_logger()
+            logger.warning("Failed to log pipeline run to monitoring system")
+            
     except Exception as e:
         logger = get_logger()
         logger.warning(f"Failed to log pipeline run: {e}")

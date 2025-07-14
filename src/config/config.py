@@ -23,7 +23,9 @@ def load_config(mode="dev"):
     config["models"]["embedding_model"] = os.getenv("EMBEDDING_MODEL", config["models"]["embedding_model"])
     
     config["runtime"]["mode"] = mode
-    config["runtime"]["dry_run"] = os.getenv("DRY_RUN", "true").lower() == "true"
+    # Default to false for wet runs, only true if explicitly set
+    dry_run_env = os.getenv("DRY_RUN", "false")
+    config["runtime"]["dry_run"] = dry_run_env.lower() == "true"
     config["runtime"]["partition_date"] = os.getenv("PARTITION_DATE", config["runtime"]["partition_date"])
     
     return config

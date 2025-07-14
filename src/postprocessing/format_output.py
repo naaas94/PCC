@@ -22,9 +22,12 @@ def format_predictions(df: pd.DataFrame, schema_path: str = "schemas/output_sche
     # Ensure subtype_label is properly formatted as nullable string
     df["subtype_label"] = df["subtype_label"].astype("string[pyarrow]")
     
-    # Validate against output schema
+    # Add ingestion_time for partitioning
+    df["ingestion_time"] = pd.Timestamp.utcnow()
+    
+    # Validate against output schema (after adding ingestion_time)
     validate_schema(df, schema_path=schema_path)
-
+    
     # Define explicit output column order
     columns = [
         "case_id",
@@ -34,7 +37,8 @@ def format_predictions(df: pd.DataFrame, schema_path: str = "schemas/output_sche
         "model_version",
         "embedding_model",
         "inference_timestamp",
-        "prediction_notes"
+        "prediction_notes",
+        "ingestion_time"
     ]
     
     df = pd.DataFrame(df[columns])  # type: ignore
