@@ -85,8 +85,30 @@ def run_pipeline_with_sample_data():
     validate_schema(df_formatted, schema_path="schemas/output_schema.json")
     print("   ✓ Output schema validated")
     
-    # Display results
-    display_results(df_formatted, config)
+    # Output to BigQuery (if not dry run)
+    if config["runtime"].get("dry_run", False):
+        print("💡 Dry run mode - skipping BigQuery write")
+        display_results(df_formatted, config)
+    else:
+        print("📤 Writing to BigQuery...")
+        from output.write_to_bq import write_to_bigquery, verify_bigquery_write
+        success = write_to_bigquery(df_formatted)
+        if success:
+            print("   ✓ Successfully wrote to BigQuery")
+            # Verify the write operation
+            verify_success = verify_bigquery_write(df_formatted)
+            if verify_success:
+                print("   ✓ BigQuery write verified")
+            else:
+                print("   ⚠️  BigQuery write verification failed")
+        else:
+            print("   ❌ Failed to write to BigQuery")
+        
+        display_results(df_formatted, config)
+    
+    # Log pipeline run to monitoring
+    import time
+    log_pipeline_run(config, "sample_data", len(df_raw), len(df_valid), len(df_formatted), time.time())
     
     return df_formatted
 

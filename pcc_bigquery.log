@@ -1,0 +1,19 @@
+2025-07-14 09:18:05 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:18:05 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:18:06 — pcc_bigquery — ERROR — [BQ] Attempt 1 failed: 403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/ales-sandbox-465911/jobs?uploadType=multipart: Access Denied: Project ales-sandbox-465911: User does not have bigquery.jobs.create permission in project ales-sandbox-465911.
+2025-07-14 09:18:06 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:18:07 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 2)
+2025-07-14 09:18:08 — pcc_bigquery — ERROR — [BQ] Attempt 2 failed: 403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/ales-sandbox-465911/jobs?uploadType=multipart: Access Denied: Project ales-sandbox-465911: User does not have bigquery.jobs.create permission in project ales-sandbox-465911.
+2025-07-14 09:18:08 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:18:10 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 3)
+2025-07-14 09:18:11 — pcc_bigquery — ERROR — [BQ] Attempt 3 failed: 403 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/ales-sandbox-465911/jobs?uploadType=multipart: Access Denied: Project ales-sandbox-465911: User does not have bigquery.jobs.create permission in project ales-sandbox-465911.
+2025-07-14 09:18:11 — pcc_bigquery — ERROR — [BQ] All 3 attempts failed. Data not written to BigQuery.
+2025-07-14 09:18:11 — pcc_bigquery — ERROR — [BQ] Monitoring log schema validation failed: Column 'ingestion_time' is not timestamp
+2025-07-14 09:22:21 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:26:04 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:26:04 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:26:11 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:26:11 — pcc_bigquery — INFO — [BQ] Table now contains 100 total rows
+2025-07-14 09:26:13 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-07-14 09:26:13 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:26:13 — pcc_bigquery — ERROR — [BQ] Monitoring log schema validation failed: Column 'ingestion_time' is not timestamp

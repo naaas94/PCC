@@ -2,9 +2,8 @@
 ### 5/21: added inference_log_schema.json and the funct
 
 import uuid
-from datetime import datetime
-from google.cloud import bigquery
 import pandas as pd
+from google.cloud import bigquery
 from utils.logger import get_bq_logger
 from utils.schema_validator import validate_schema 
 from config.config import load_config
@@ -65,7 +64,7 @@ def log_inference_run(
     
     client = bigquery.Client(location="EU")
     run_id = str(uuid.uuid4())
-    runtime_ts = datetime.utcnow().isoformat()
+    runtime_ts = pd.Timestamp.utcnow()
 
     row = {
         "run_id": run_id,
@@ -82,10 +81,10 @@ def log_inference_run(
         "processing_duration_seconds": processing_duration_seconds,
         "error_message": error_message
     }
-    
+
     df_row = pd.DataFrame([row])
-    df_row["runtime_ts"] = pd.to_datetime(df_row["runtime_ts"])
-    
+    # runtime_ts and ingestion_time are already pd.Timestamp
+
     # Validate schema before logging
     try:
         validate_schema(df_row, schema_path="schemas/inference_log_schema.json")
