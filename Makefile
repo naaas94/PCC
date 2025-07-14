@@ -1,7 +1,7 @@
 # PCC — PRIVACY CASE CLASSIFIER
-# Development automation
+# Development automation for fully orchestrated system
 
-.PHONY: help install test format lint check clean run setup
+.PHONY: help install test format lint check clean run setup bq-setup logs monitor
 
 # Default target
 help:
@@ -16,6 +16,9 @@ help:
 	@echo "  lint      - Lint code with flake8"
 	@echo "  check     - Run format and lint checks"
 	@echo "  run       - Run pipeline with sample data"
+	@echo "  bq-setup  - Setup BigQuery tables"
+	@echo "  logs      - View recent logs"
+	@echo "  monitor   - Check BigQuery monitoring data"
 	@echo "  clean     - Remove generated files and caches"
 
 # Development setup
@@ -32,6 +35,13 @@ install:
 	pip install -r requirements.txt
 	pip install -r requirements-dev.txt
 	@echo "✓ Dependencies installed"
+
+# BigQuery setup
+bq-setup:
+	@echo "Setting up BigQuery tables..."
+	@echo "Execute the following command in BigQuery:"
+	@echo "bq query --use_legacy_sql=false < scripts/create_bigquery_tables.sql"
+	@echo "✓ BigQuery tables will be created"
 
 # Testing
 test:
@@ -59,6 +69,25 @@ run:
 	@echo "Running pipeline with sample data..."
 	python scripts/run_pipeline.py --sample
 
+run-bq:
+	@echo "Running pipeline with BigQuery data..."
+	@echo "Usage: make run-bq PARTITION=20250101"
+	python scripts/run_pipeline.py --partition $(PARTITION) --mode dev
+
+# Logging and monitoring
+logs:
+	@echo "Recent pipeline logs:"
+	@tail -20 pcc_pipeline.log
+	@echo ""
+	@echo "Recent BigQuery logs:"
+	@tail -20 pcc_bigquery.log
+
+monitor:
+	@echo "Checking BigQuery monitoring data..."
+	@echo "Query the monitoring table:"
+	@echo "SELECT * FROM \`ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs\`"
+	@echo "ORDER BY runtime_ts DESC LIMIT 10;"
+
 # Cleanup
 clean:
 	@echo "Cleaning generated files..."
@@ -75,4 +104,11 @@ dev-setup: setup install
 	@echo "✓ Development environment ready"
 
 dev-test: check test
-	@echo "✓ Development checks completed" 
+	@echo "✓ Development checks completed"
+
+# Production workflow
+prod-setup: setup install bq-setup
+	@echo "✓ Production environment ready"
+
+prod-run: check test run
+	@echo "✓ Production pipeline completed" 

@@ -1,3 +1,6 @@
+# PCC — Privacy Case Classifier
+# Production-ready Docker image for fully orchestrated system
+
 # Base image
 FROM python:3.10-slim
 
@@ -23,5 +26,16 @@ COPY . .
 # Add src to PYTHONPATH so `from config.config import load_config` works
 ENV PYTHONPATH="${PYTHONPATH}:/app/src"
 
-# Entry point
-ENTRYPOINT ["python", "scripts/run_local_pipeline.py"]
+# Create log directory
+RUN mkdir -p /app/logs
+
+# Set default environment variables
+ENV DRY_RUN=false
+ENV PYTHONPATH=/app/src
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)" || exit 1
+
+# Entry point for production pipeline
+ENTRYPOINT ["python", "scripts/run_pipeline.py"]
