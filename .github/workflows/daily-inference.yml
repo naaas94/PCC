@@ -23,8 +23,13 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
+      - name: Set up GCP credentials
+        run: echo "${{ secrets.GCP_CREDENTIALS }}" > ${{ github.workspace }}/gcp-key.json
+
       - name: Run inference pipeline
         id: run_pipeline
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
         run: |
           set -o pipefail
           python scripts/run_pipeline.py 2>&1 | tee pipeline_output.log
