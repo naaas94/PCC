@@ -95,6 +95,11 @@ def log_inference_run(
 
     logger.debug(f"Logging inference run: {row}")
     
+    # Convert all pd.Timestamp to RFC3339 string for BigQuery JSON API
+    for k, v in row.items():
+        if isinstance(v, pd.Timestamp):
+            row[k] = v.isoformat()
+
     for attempt in range(max_retries):
         try:
             errors = client.insert_rows_json(table, [row])

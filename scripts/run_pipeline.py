@@ -108,7 +108,7 @@ def run_pipeline_with_sample_data():
     
     # Log pipeline run to monitoring
     import time
-    log_pipeline_run(config, "sample_data", len(df_raw), len(df_valid), len(df_formatted), time.time())
+    log_pipeline_run(config, config["runtime"]["partition_date"], len(df_raw), len(df_valid), len(df_formatted), time.time())
     
     return df_formatted
 
