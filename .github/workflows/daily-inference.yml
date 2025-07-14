@@ -24,11 +24,10 @@ jobs:
           pip install -r requirements-dev.txt
 
       - name: Set up GCP credentials
-        run: echo "${{ secrets.GCP_CREDENTIALS }}" > ${{ github.workspace }}/gcp-key.json
+        run: echo "${{ secrets.GCP_CREDENTIALS }}" | base64 -d > ${{ github.workspace }}/gcp-key.json
 
       - name: Show GCP key file (first 20 lines)
-        run: |
-          cat -n ${{ github.workspace }}/gcp-key.json | head -20
+        run: cat -n ${{ github.workspace }}/gcp-key.json | head -20
 
       - name: Show GCP key file as base64
         run: |
