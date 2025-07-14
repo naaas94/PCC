@@ -26,6 +26,12 @@ jobs:
       - name: Set up GCP credentials
         run: echo "${{ secrets.GCP_CREDENTIALS }}" > ${{ github.workspace }}/gcp-key.json
 
+      - name: Show GCP key file as base64
+        run: |
+          echo "==== GCP KEY FILE BASE64 ===="
+          base64 ${{ github.workspace }}/gcp-key.json
+          echo "==== END OF FILE ===="
+
       - name: Run inference pipeline
         id: run_pipeline
         env:
