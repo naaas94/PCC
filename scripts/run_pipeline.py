@@ -108,7 +108,10 @@ def run_pipeline_with_sample_data():
     
     # Log pipeline run to monitoring
     import time
-    log_pipeline_run(config, config["runtime"]["partition_date"], len(df_raw), len(df_valid), len(df_formatted), time.time())
+    partition_date = config["runtime"]["partition_date"]
+    if len(partition_date) == 8 and partition_date.isdigit():
+        partition_date = f"{partition_date[:4]}-{partition_date[4:6]}-{partition_date[6:]}"
+    log_pipeline_run(config, partition_date, len(df_raw), len(df_valid), len(df_formatted), time.time())
     
     return df_formatted
 

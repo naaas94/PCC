@@ -56,3 +56,29 @@
 2025-07-14 09:31:40 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 2): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
 2025-07-14 09:31:40 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
 2025-07-14 09:31:42 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 3): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: 'sample_data'"}]}]
+2025-07-14 09:33:07 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:33:07 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:33:12 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:33:12 — pcc_bigquery — INFO — [BQ] Table now contains 500 total rows
+2025-07-14 09:33:14 — pcc_bigquery — INFO — [BQ] Found 500 records written in the last hour
+2025-07-14 09:33:14 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:33:14 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-07-14 09:33:14 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '2f8061f6-0e7a-42b3-8f8f-64e2aeabe098', 'model_version': 'v0.1', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '20250714', 'runtime_ts': Timestamp('2025-07-14 12:33:14.015328+0000', tz='UTC'), 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': Timestamp('2025-07-14 12:33:14.015328+0000', tz='UTC'), 'processing_duration_seconds': 0.0030007362365722656, 'error_message': None}
+2025-07-14 09:33:14 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 1): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
+2025-07-14 09:33:14 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:33:15 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 2): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
+2025-07-14 09:33:15 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:33:18 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 3): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
+2025-07-14 09:33:43 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-07-14 09:33:43 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-07-14 09:33:49 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-07-14 09:33:49 — pcc_bigquery — INFO — [BQ] Table now contains 600 total rows
+2025-07-14 09:33:51 — pcc_bigquery — INFO — [BQ] Found 600 records written in the last hour
+2025-07-14 09:33:51 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-07-14 09:33:51 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-07-14 09:33:51 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '5f7bd815-699e-41e5-b207-f602645d7118', 'model_version': 'v0.1', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '20250714', 'runtime_ts': Timestamp('2025-07-14 12:33:51.203712+0000', tz='UTC'), 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': Timestamp('2025-07-14 12:33:51.203712+0000', tz='UTC'), 'processing_duration_seconds': 0.002990245819091797, 'error_message': None}
+2025-07-14 09:33:51 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 1): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
+2025-07-14 09:33:51 — pcc_bigquery — INFO — [BQ] Retrying in 1 seconds...
+2025-07-14 09:33:53 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 2): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
+2025-07-14 09:33:53 — pcc_bigquery — INFO — [BQ] Retrying in 2 seconds...
+2025-07-14 09:33:55 — pcc_bigquery — ERROR — [BQ] Failed to log inference run (attempt 3): [{'index': 0, 'errors': [{'reason': 'invalid', 'location': 'partition_date', 'debugInfo': '', 'message': "Invalid date: '20250714'"}]}]
