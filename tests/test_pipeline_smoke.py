@@ -38,7 +38,8 @@ def test_schema_validation(sample_data):
         'model_version': ['v0.1'] * len(sample_data),
         'embedding_model': ['all-MiniLM-L6-v2'] * len(sample_data),
         'inference_timestamp': pd.Timestamp.now(),
-        'prediction_notes': ['Test prediction'] * len(sample_data)
+        'prediction_notes': ['Test prediction'] * len(sample_data),
+        'ingestion_time': pd.Timestamp.now()
     })
     validate_schema(output_data, schema_path="schemas/output_schema.json")
 

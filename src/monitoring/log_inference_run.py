@@ -5,10 +5,14 @@ import uuid
 from datetime import datetime
 from google.cloud import bigquery
 import pandas as pd
-from utils.logger import get_logger
+from utils.logger import get_bq_logger
 from utils.schema_validator import validate_schema 
+from config.config import load_config
+import time
+from typing import Optional
 
-logger = get_logger()
+logger = get_bq_logger()
+config = load_config()
 
 def log_inference_run(
     partition_date: str,
@@ -19,11 +23,46 @@ def log_inference_run(
     dropped_cases: int,
     status: str = "success",
     notes: str = "MVP run log",
-    table: str = "redacted"
-):
+    processing_duration_seconds: float = 0.0,
+    error_message: str | None = None,
+    table: Optional[str] = None,
+    max_retries: int = 3
+) -> bool:
     """
     Logs a single inference run to BigQuery monitoring table.
+    
+    Args:
+        partition_date: Date partition being processed
+        model_version: Version of the model used
+        embedding_model: Embedding model used
+        total_cases: Total number of cases processed
+        passed_validation: Number of cases that passed validation
+        dropped_cases: Number of cases dropped during processing
+        status: Status of the run (success, failed, partial)
+        notes: Additional notes about the run
+        processing_duration_seconds: Time taken to process
+        error_message: Error message if any
+        table: BigQuery table name (uses config if not provided)
+        max_retries: Maximum number of retry attempts
+        
+    Returns:
+        bool: True if logging successful, False otherwise
     """
+    if table is None:
+        # Use config table or default
+        table = config.get("bq", {}).get("monitoring_table", "ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs")
+    
+    # Ensure table is not None for BigQuery operations
+    if table is None:
+        logger.error("No monitoring table configured")
+        return False
+    
+    dry_run = config["runtime"].get("dry_run", False)
+    if dry_run:
+        logger.info(f"[DRY RUN] Would log inference run to {table}")
+        logger.info(f"[DRY RUN] Run details: {partition_date}, {model_version}, {status}")
+        return True
+    
     client = bigquery.Client(location="EU")
     run_id = str(uuid.uuid4())
     runtime_ts = datetime.utcnow().isoformat()
@@ -38,15 +77,96 @@ def log_inference_run(
         "total_cases": total_cases,
         "passed_validation": passed_validation,
         "dropped_cases": dropped_cases,
-        "notes": notes
+        "notes": notes,
+        "ingestion_time": runtime_ts,
+        "processing_duration_seconds": processing_duration_seconds,
+        "error_message": error_message
     }
+    
     df_row = pd.DataFrame([row])
     df_row["runtime_ts"] = pd.to_datetime(df_row["runtime_ts"])
-    validate_schema(df_row, schema_path="schemas/inference_log_schema.json")
+    
+    # Validate schema before logging
+    try:
+        validate_schema(df_row, schema_path="schemas/inference_log_schema.json")
+        logger.debug("Monitoring log schema validated successfully")
+    except Exception as e:
+        logger.error(f"Monitoring log schema validation failed: {e}")
+        return False
 
     logger.debug(f"Logging inference run: {row}")
-    errors = client.insert_rows_json(table, [row])
-    if errors:
-        logger.error(f"Failed to log inference run: {errors}")
-    else:
-        logger.info("Inference run logged successfully.")
+    
+    for attempt in range(max_retries):
+        try:
+            errors = client.insert_rows_json(table, [row])
+            if errors:
+                logger.error(f"Failed to log inference run (attempt {attempt + 1}): {errors}")
+                if attempt < max_retries - 1:
+                    wait_time = 2 ** attempt
+                    logger.info(f"Retrying in {wait_time} seconds...")
+                    time.sleep(wait_time)
+                else:
+                    return False
+            else:
+                logger.info(f"Inference run logged successfully to {table}")
+                logger.info(f"Run ID: {run_id}, Status: {status}, Cases: {total_cases}")
+                return True
+                
+        except Exception as e:
+            logger.error(f"Exception logging inference run (attempt {attempt + 1}): {e}")
+            if attempt < max_retries - 1:
+                wait_time = 2 ** attempt
+                logger.info(f"Retrying in {wait_time} seconds...")
+                time.sleep(wait_time)
+            else:
+                return False
+    
+    return False
+
+
+def verify_monitoring_log(run_id: str, table: Optional[str] = None) -> bool:
+    """
+    Verify that a monitoring log entry was written to BigQuery.
+    
+    Args:
+        run_id: The run ID to verify
+        table: BigQuery table name (uses config if not provided)
+        
+    Returns:
+        bool: True if verification successful
+    """
+    if table is None:
+        table = config.get("bq", {}).get("monitoring_table", "ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs")
+    
+    # Ensure table is not None for BigQuery operations
+    if table is None:
+        logger.error("No monitoring table configured")
+        return False
+    
+    dry_run = config["runtime"].get("dry_run", False)
+    if dry_run:
+        logger.info("[DRY RUN] Skipping monitoring log verification")
+        return True
+    
+    try:
+        client = bigquery.Client(location="EU")
+        
+        query = f"""
+        SELECT COUNT(*) as log_count
+        FROM `{table}`
+        WHERE run_id = '{run_id}'
+        """
+        
+        result = client.query(query).result()
+        log_count = next(result).log_count
+        
+        if log_count > 0:
+            logger.info(f"Monitoring log verification successful for run_id: {run_id}")
+            return True
+        else:
+            logger.warning(f"No monitoring log found for run_id: {run_id}")
+            return False
+            
+    except Exception as e:
+        logger.error(f"Monitoring log verification failed: {e}")
+        return False

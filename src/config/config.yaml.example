@@ -8,6 +8,9 @@ bq:
   # Output table destination (MVP-ready)
   output_table: your-project.your-dataset.output_table
   
+  # Monitoring table for logging pipeline runs
+  monitoring_table: your-project.your-dataset.pcc_monitoring_logs
+  
 models:
   # Local paths to model artifacts (can later be migrated to GCS)
   classifier_path: src/models/pcc_v0.1.1.pkl
@@ -20,7 +23,8 @@ runtime:
   mode: dev
 
   # Prevent writing to BigQuery if true (used during development/testing)
-  dry_run: true
+  # Set to false for wet runs
+  dry_run: false
 
   # Date partition to process — format: YYYYMMDD (used for snapshot resolution)
   partition_date: 20250101 

@@ -8,5 +8,8 @@
   "total_cases": "integer",
   "passed_validation": "integer",
   "dropped_cases": "integer",
-  "notes": "string"
+  "notes": "string",
+  "ingestion_time": "timestamp",
+  "processing_duration_seconds": "float",
+  "error_message": "string|null"
 }

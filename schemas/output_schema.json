@@ -6,5 +6,6 @@
     "model_version": "string",
     "embedding_model": "string",
     "inference_timestamp": "timestamp",
-    "prediction_notes": "string|null"
-  }
+    "prediction_notes": "string|null",
+    "ingestion_time": "timestamp"
+}
