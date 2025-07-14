@@ -26,6 +26,10 @@ jobs:
       - name: Set up GCP credentials
         run: echo "${{ secrets.GCP_CREDENTIALS }}" | sed 's/\\n/\n/g' > ${{ github.workspace }}/gcp-key.json
 
+      - name: Show GCP key file (first 20 lines)
+        run: |
+          cat -n ${{ github.workspace }}/gcp-key.json | head -20
+
       - name: Show GCP key file as base64
         run: |
           echo "==== GCP KEY FILE BASE64 ===="
