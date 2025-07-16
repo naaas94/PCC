@@ -1,4 +1,4 @@
-# Model Training Pipeline: Action Plan
+# Model Training Pipeline: Detailed Implementation Plan
 
 **Project Type:** Modular ML Model Training Pipeline  
 **Stack:** Python • Scikit-learn • Pandas • MLflow (optional)  
@@ -12,6 +12,15 @@ This project implements a robust, production-oriented pipeline for training and 
 
 ---
 
+## Key Learnings & Tensions
+
+- **Data Scarcity:** Unlike enterprise settings (e.g., Spotify), labeled data is limited. The pipeline must support both simulated and real datasets, and document all assumptions.
+- **Curated Data:** The quality of the training set is critical. Automated validation, balancing, and stratified sampling are required, but the plan must allow for manual curation or review if needed.
+- **Reproducibility vs. Flexibility:** All steps must be deterministic and logged, but the pipeline should allow for easy adjustment of sampling, balancing, and feature selection strategies.
+- **Integration:** The pipeline must be decoupled but interoperable with the data-pipeline (for data ingestion) and PCC (for model deployment).
+
+---
+
 ## Action Plan
 
 ### 1. Project Structure
@@ -19,54 +28,109 @@ This project implements a robust, production-oriented pipeline for training and 
 ```
 model-training-pipeline/
 ├── src/
-│   ├── train_pipeline.py         # Main training script
-│   ├── utils/                   # Shared utilities (logger, metrics, etc.)
-│   └── models/                  # Trained model artifacts
-├── data/                        # Curated training datasets (CSV/Parquet)
-├── notebooks/                   # (Optional) EDA and analysis
-├── requirements.txt             # Dependencies
-├── README.md                    # Documentation
-└── ...
+│   ├── train_pipeline.py         # Main training script (CLI-ready)
+│   ├── utils/
+│   │   ├── logger.py             # Standardized logging
+│   │   ├── metrics.py            # Metric calculation and reporting
+│   │   └── data_utils.py         # Data loading, validation, splitting
+│   └── models/                   # Trained model artifacts (.pkl, .joblib)
+├── data/                         # Curated training datasets (CSV/Parquet)
+├── notebooks/                    # (Optional) EDA and analysis
+├── tests/                        # Unit and integration tests
+├── requirements.txt              # Dependencies
+├── README.md                     # Documentation
+└── .env / config.yaml            # Configurations (optional)
 ```
 
+---
+
 ### 2. Data Ingestion
-- Ingest curated training data from `/data/curated_training_data.csv` or `.parquet`.
-- Validate schema, feature types, and class distribution.
-- Log dataset version and provenance for traceability.
+
+- **Input:** `/data/curated_training_data.csv` or `.parquet` (exported from data-pipeline).
+- **Validation:**
+  - Check schema: required columns (e.g., embeddings, label, metadata).
+  - Assert no missing values in critical fields.
+  - Log dataset version, provenance, and summary statistics.
+- **Tension:** If the dataset is simulated, log all generation parameters for traceability.
+
+---
 
 ### 3. Preprocessing
-- Handle missing values, outliers, and feature normalization as required.
-- Support flexible feature selection (e.g., embeddings, metadata).
-- Ensure compatibility with downstream inference requirements.
 
-### 4. Model Training
-- Implement reproducible training of a baseline classifier (e.g., LogisticRegression).
-- Support hyperparameter tuning (e.g., grid search, cross-validation).
-- Track training metrics (accuracy, F1, ROC-AUC, PR-AUC) and log results.
-- (Optional) Integrate MLflow for experiment tracking and artifact management.
+- **Feature Handling:**
+  - Extract features (e.g., embeddings) and target variable.
+  - Support for additional features (metadata, synthetic fields).
+- **Data Cleaning:**
+  - Handle missing values, outliers, and type mismatches.
+  - Optionally, allow for manual review of edge cases.
+- **Flexibility:** All preprocessing steps should be parameterizable via config or CLI.
 
-### 5. Evaluation
-- Evaluate model on a hold-out test set (stratified split).
-- Generate and persist evaluation reports (classification report, confusion matrix, ROC/PR curves).
-- Document model performance and limitations.
+---
 
-### 6. Model Persistence
-- Serialize and version trained models (`.pkl` or `.joblib`) in `/src/models/`.
-- Store accompanying metadata (training date, data version, hyperparameters, metrics).
-- Ensure artifacts are ready for seamless integration with the PCC inference layer.
+### 4. Data Splitting & Sampling
 
-### 7. Documentation & Reproducibility
-- Provide a clear, professional `README.md` with:
+- **Stratified Split:** Use `train_test_split(..., stratify=...)` to maintain class balance.
+- **Control Groups:** If required, create and log a control group for evaluation.
+- **Tension:** If the dataset is small, allow for k-fold cross-validation as an alternative.
+
+---
+
+### 5. Model Training
+
+- **Baseline Model:** LogisticRegression (with hyperparameters from config).
+- **Hyperparameter Tuning:** GridSearchCV or similar, with cross-validation.
+- **Metrics:** Track accuracy, F1, ROC-AUC, PR-AUC, and confusion matrix.
+- **Experiment Tracking:** (Optional) Integrate MLflow for parameter, metric, and artifact logging.
+- **Reproducibility:** Set random seeds and log all parameters.
+
+---
+
+### 6. Evaluation
+
+- **Test Set Evaluation:** Generate classification report, confusion matrix, ROC/PR curves.
+- **Reporting:** Save all evaluation artifacts (plots, reports) to `/src/models/` or `/reports/`.
+- **Tension:** If performance is poor, log warnings and suggest reviewing data curation or feature engineering.
+
+---
+
+### 7. Model Persistence
+
+- **Serialization:** Save model as `.pkl` or `.joblib` in `/src/models/`.
+- **Metadata:** Save a JSON with:
+  - Model version, training date, data version/hash, hyperparameters, metrics, notes.
+- **Versioning:** Use timestamp or semantic versioning for model files.
+
+---
+
+### 8. Documentation & Reproducibility
+
+- **README.md:** Must include:
   - Project purpose and architecture
   - Usage instructions (CLI, config)
   - Integration points with data-pipeline and PCC
   - Example commands and expected outputs
-- Document all assumptions, limitations, and manual steps (if any).
+  - Explicit notes on simulated vs. real data, and manual vs. automated curation
+- **Assumptions & Limitations:** Clearly document any manual steps or data limitations.
 
-### 8. Testing & Validation
-- Implement unit and smoke tests for core training logic.
-- Validate end-to-end reproducibility with sample datasets.
-- Ensure compatibility with evolving data schemas and PCC requirements.
+---
+
+### 9. Testing & Validation
+
+- **Unit Tests:** For data loading, preprocessing, and model training.
+- **Integration Tests:** End-to-end test with a sample dataset.
+- **Schema Validation:** Ensure compatibility with evolving data schemas and PCC requirements.
+
+---
+
+## Example CLI Usage
+
+```bash
+# Train with default config
+python src/train_pipeline.py --data data/curated_training_data.csv
+
+# Train with custom config
+python src/train_pipeline.py --data data/curated_training_data.csv --config config.yaml
+```
 
 ---
 
@@ -88,21 +152,3 @@ model-training-pipeline/
 ---
 
 *This plan reflects a sober, professional approach to ML engineering, emphasizing clarity, traceability, and production alignment. All documentation and code should maintain this standard throughout the project lifecycle.* 
-noteId: "e9c42850623911f0afad71daeb63f4c1"
-tags: []
-
----
-
- 
-noteId: "e9c42850623911f0afad71daeb63f4c1"
-tags: []
-
----
-
- 
-noteId: "e9c42850623911f0afad71daeb63f4c1"
-tags: []
-
----
-
- 

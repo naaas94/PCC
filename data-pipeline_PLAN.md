@@ -1,4 +1,4 @@
-# Data Pipeline: Action Plan
+# Data Pipeline: Detailed Implementation Plan
 
 **Project Type:** Modular Data Engineering & Curation Pipeline  
 **Stack:** Python • Pandas • Great Expectations (optional)  
@@ -12,6 +12,15 @@ This project implements a robust, production-aligned data pipeline for the synth
 
 ---
 
+## Key Learnings & Tensions
+
+- **Data Scarcity:** In the absence of real labeled data, the pipeline must support simulation of labeled datasets and control groups, with all parameters logged for transparency.
+- **Automated Curation:** Steps like validation, stratified sampling, and class balancing can be automated, but the pipeline should allow for manual review or override where expert judgment is critical.
+- **Data Quality:** Strict schema validation and data quality checks are essential to avoid garbage-in, garbage-out scenarios.
+- **Integration:** The output must be directly consumable by the model-training-pipeline, with clear documentation and reproducibility.
+
+---
+
 ## Action Plan
 
 ### 1. Project Structure
@@ -19,52 +28,91 @@ This project implements a robust, production-aligned data pipeline for the synth
 ```
 data-pipeline/
 ├── src/
-│   ├── data_pipeline.py          # Main ETL and curation script
-│   ├── validators/               # Schema and data quality checks
-│   └── utils/                    # Shared utilities (logger, sampling, etc.)
+│   ├── data_pipeline.py          # Main ETL and curation script (CLI-ready)
+│   ├── validators/
+│   │   ├── schema_validator.py   # Schema and type checks
+│   │   └── quality_checks.py     # Nulls, outliers, duplicates, etc.
+│   └── utils/
+│       ├── logger.py             # Standardized logging
+│       └── sampling.py           # Stratified and random sampling
 ├── output/                       # Curated datasets (CSV/Parquet)
+├── tests/                        # Unit and integration tests
 ├── requirements.txt              # Dependencies
 ├── README.md                     # Documentation
-└── ...
+└── .env / config.yaml            # Configurations (optional)
 ```
 
+---
+
 ### 2. Data Synthesis or Ingestion
-- Simulate labeled datasets and control groups if real data is unavailable.
-- Ingest raw or semi-structured data from local or cloud sources as needed.
-- Document all assumptions and simulation parameters for transparency.
+
+- **Simulate Data:** If no real data, generate synthetic labeled datasets and control groups, with parameters (class balance, feature distributions) logged.
+- **Ingest Data:** If real data is available, support loading from CSV, Parquet, or cloud sources.
+- **Tension:** All simulation logic must be reproducible and documented.
+
+---
 
 ### 3. ETL & Data Validation
-- Apply rigorous schema validation (column types, shapes, nulls, outliers).
-- Integrate Great Expectations or custom validators for data quality enforcement.
-- Log all validation steps and outcomes for auditability.
+
+- **Schema Validation:** Enforce required columns, types, and shapes.
+- **Quality Checks:** Nulls, outliers, duplicates, and value ranges.
+- **Great Expectations:** (Optional) Integrate for data quality reporting.
+- **Logging:** All validation steps and failures must be logged for auditability.
+
+---
 
 ### 4. Stratified Sampling & Grouping
-- Implement stratified sampling to ensure representative class and feature distributions.
-- Automate creation of control groups and test splits as required.
-- Support flexible sampling strategies (by intent, channel, semantic density, etc.).
+
+- **Stratified Sampling:** Ensure representative class and feature distributions (e.g., by intent, channel, semantic density).
+- **Control Groups:** Automate creation of control/test groups if needed.
+- **Parameterization:** Allow sampling strategies to be set via config or CLI.
+
+---
 
 ### 5. Class Balancing & Enrichment
-- Apply automated class balancing (e.g., SMOTE, oversampling, undersampling) as needed.
-- Enrich datasets with synthetic features or metadata if required for downstream tasks.
-- Ensure all transformations are logged and reproducible.
+
+- **Balancing:** Apply SMOTE, oversampling, or undersampling as needed.
+- **Enrichment:** Add synthetic features or metadata if required for downstream tasks.
+- **Logging:** All transformations and parameters must be logged for reproducibility.
+
+---
 
 ### 6. Export & Integration
-- Export curated datasets to `/output/curated_training_data.csv` or `.parquet`.
-- Provide clear instructions for transferring datasets to the model-training-pipeline (`/data/`).
-- (Optional) Support export to cloud storage or data warehouses (e.g., BigQuery) for enterprise integration.
+
+- **Export:** Save curated datasets to `/output/curated_training_data.csv` or `.parquet`.
+- **Instructions:** Provide clear steps for transferring datasets to the model-training-pipeline (`/data/`).
+- **(Optional) Cloud Export:** Support export to BigQuery or cloud storage for enterprise scenarios.
+
+---
 
 ### 7. Documentation & Reproducibility
-- Maintain a professional `README.md` with:
+
+- **README.md:** Must include:
   - Project purpose and architecture
   - Usage instructions and configuration
   - Integration points with model-training-pipeline and PCC
   - Example commands and expected outputs
-- Document all simulation, validation, and curation logic for full traceability.
+  - Explicit notes on simulated vs. real data, and manual vs. automated curation
+- **Traceability:** All simulation, validation, and curation logic must be documented.
+
+---
 
 ### 8. Testing & Data Quality Assurance
-- Implement unit and integration tests for core ETL and validation logic.
-- Validate end-to-end reproducibility with sample runs.
-- Ensure compatibility with evolving schema and downstream ML requirements.
+
+- **Unit Tests:** For ETL, validation, and sampling logic.
+- **Integration Tests:** End-to-end test with a sample run.
+- **Schema Validation:** Ensure compatibility with evolving requirements.
+
+---
+
+## Example CLI Usage
+
+```bash
+# Generate and export a curated training dataset
+python src/data_pipeline.py --config config.yaml
+
+# Output: output/curated_training_data.csv
+```
 
 ---
 
