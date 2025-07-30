@@ -15,13 +15,34 @@ help:
 	@echo "  format    - Format code with black and isort"
 	@echo "  lint      - Lint code with flake8"
 	@echo "  check     - Run format and lint checks"
+	@echo ""
+	@echo "Pipeline Execution:"
 	@echo "  run       - Run pipeline with sample data"
+	@echo "  run-with-model - Run pipeline with sample data + model ingestion"
+	@echo "  run-bq    - Run pipeline with BigQuery data (requires PARTITION=YYYYMMDD)"
+	@echo "  run-bq-with-model - Run pipeline with BigQuery + latest model"
+	@echo "  run-bq-today - Run pipeline with BigQuery + today's model"
+	@echo ""
+	@echo "Model Management:"
 	@echo "  ingest-model - Ingest latest model from GCS"
+	@echo "  ingest-today - Ingest today's model from GCS (if available)"
 	@echo "  ingest-and-run - Ingest model and run pipeline"
+	@echo "  daily-run    - Run daily pipeline with automatic model ingestion"
+	@echo "  daily-run-dev - Run daily pipeline in development mode"
+	@echo "  daily-run-with-partition - Run daily pipeline with specific partition"
+	@echo ""
+	@echo "Infrastructure:"
 	@echo "  bq-setup  - Setup BigQuery tables"
 	@echo "  logs      - View recent logs"
 	@echo "  monitor   - Check BigQuery monitoring data"
 	@echo "  clean     - Remove generated files and caches"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make run-bq PARTITION=20250101"
+	@echo "  make run-bq-with-model PARTITION=20250101"
+	@echo "  make ingest-and-run"
+	@echo "  make daily-run"
+	@echo "  make daily-run-with-partition PARTITION=20250101"
 
 # Development setup
 setup:
@@ -82,9 +103,23 @@ run:
 	@echo "Running pipeline with sample data..."
 	python scripts/run_pipeline.py --sample
 
+run-with-model:
+	@echo "Running pipeline with sample data and model ingestion..."
+	python scripts/run_pipeline.py --sample --force-latest
+
 run-bq:
 	@echo "Running pipeline with BigQuery data..."
 	@echo "Usage: make run-bq PARTITION=20250101"
+	python scripts/run_pipeline.py --partition $(PARTITION) --mode dev
+
+run-bq-with-model:
+	@echo "Running pipeline with BigQuery data and model ingestion..."
+	@echo "Usage: make run-bq-with-model PARTITION=20250101"
+	python scripts/run_pipeline.py --partition $(PARTITION) --mode dev --force-latest
+
+run-bq-today:
+	@echo "Running pipeline with BigQuery data and today's model..."
+	@echo "Usage: make run-bq-today PARTITION=20250101"
 	python scripts/run_pipeline.py --partition $(PARTITION) --mode dev
 
 ingest-and-run:
@@ -94,6 +129,19 @@ ingest-and-run:
 ingest-and-run-today:
 	@echo "Ingesting today's model and running pipeline..."
 	python scripts/ingest_and_run_pipeline.py
+
+daily-run:
+	@echo "Running daily pipeline with automatic model ingestion..."
+	python scripts/daily_pipeline_run.py
+
+daily-run-dev:
+	@echo "Running daily pipeline in development mode..."
+	python scripts/daily_pipeline_run.py --mode dev
+
+daily-run-with-partition:
+	@echo "Running daily pipeline with specific partition..."
+	@echo "Usage: make daily-run-with-partition PARTITION=20250101"
+	python scripts/daily_pipeline_run.py --partition $(PARTITION)
 
 # Logging and monitoring
 logs:

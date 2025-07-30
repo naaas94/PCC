@@ -19,6 +19,47 @@ from config.config import load_config
 from utils.logger import get_logger
 from utils.schema_validator import validate_schema
 
+def check_and_ingest_model(force_latest: bool = False, skip_ingestion: bool = False):
+    """
+    Check for new models and ingest if available.
+    
+    Args:
+        force_latest: If True, get the latest model regardless of date
+        skip_ingestion: If True, skip model ingestion entirely
+    
+    Returns:
+        bool: True if model ingestion was successful or skipped, False otherwise
+    """
+    if skip_ingestion:
+        logger = get_logger()
+        logger.info("Model ingestion skipped by user request")
+        return True
+    
+    try:
+        from ingestion.load_model_from_gcs import ingest_latest_model
+        from inference.classifier_interface import reload_model
+        
+        logger = get_logger()
+        logger.info("Checking for new models in GCS...")
+        
+        # Ingest the latest model
+        success = ingest_latest_model(force_latest=force_latest)
+        
+        if success:
+            # Reload the model in memory
+            reload_model()
+            logger.info("Model ingestion completed successfully")
+            return True
+        else:
+            logger.warning("Model ingestion failed, continuing with existing model")
+            return False
+            
+    except Exception as e:
+        logger = get_logger()
+        logger.error(f"Error during model ingestion: {e}")
+        logger.warning("Continuing with existing model")
+        return False
+
 def load_sample_data():
     """Load synthetic sample data for demonstration"""
     try:
@@ -29,12 +70,20 @@ def load_sample_data():
         print("❌ Sample data not found. Run 'python scripts/generate_sample_data.py' first.")
         sys.exit(1)
 
-def run_pipeline_with_sample_data():
+def run_pipeline_with_sample_data(force_latest: bool = False, skip_ingestion: bool = False):
     """Execute pipeline with synthetic data"""
     logger = get_logger()
     
     print("🚀 Running PCC Pipeline with Sample Data")
     print("=" * 50)
+    
+    # Check and ingest new model
+    print("🔍 Checking for new models...")
+    model_ingestion_success = check_and_ingest_model(force_latest=force_latest, skip_ingestion=skip_ingestion)
+    if model_ingestion_success:
+        print("   ✓ Model ingestion completed")
+    else:
+        print("   ⚠️  Model ingestion failed, continuing with existing model")
     
     # Load configuration
     config = load_config("dev")
@@ -116,7 +165,7 @@ def run_pipeline_with_sample_data():
     
     return df_formatted
 
-def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev"):
+def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev", force_latest: bool = False, skip_ingestion: bool = False):
     """Execute pipeline with BigQuery data"""
     import time
     
@@ -126,6 +175,14 @@ def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev"):
 
     logger.info("Starting PCC pipeline with BigQuery data")
     logger.info(f"Partition date: {partition_date}")
+
+    # Check and ingest new model
+    logger.info("Checking for new models...")
+    model_ingestion_success = check_and_ingest_model(force_latest=force_latest, skip_ingestion=skip_ingestion)
+    if model_ingestion_success:
+        logger.info("Model ingestion completed successfully")
+    else:
+        logger.warning("Model ingestion failed, continuing with existing model")
 
     # Ingestion
     from ingestion.load_from_bq import load_snapshot_partition
@@ -244,14 +301,18 @@ def main():
     parser.add_argument("--partition", help="Partition date in YYYYMMDD format (for BigQuery)")
     parser.add_argument("--sample", action="store_true", 
                        help="Use sample data instead of BigQuery")
+    parser.add_argument("--force-latest", action="store_true",
+                       help="Get the latest model regardless of date")
+    parser.add_argument("--skip-ingestion", action="store_true",
+                       help="Skip model ingestion and use existing model")
     
     args = parser.parse_args()
     
     try:
         if args.sample or not args.partition:
-            run_pipeline_with_sample_data()
+            run_pipeline_with_sample_data(force_latest=args.force_latest, skip_ingestion=args.skip_ingestion)
         else:
-            run_pipeline_with_bigquery(args.partition, args.mode)
+            run_pipeline_with_bigquery(args.partition, args.mode, force_latest=args.force_latest, skip_ingestion=args.skip_ingestion)
     except Exception as e:
         print(f"❌ Error running pipeline: {e}")
         sys.exit(1)
