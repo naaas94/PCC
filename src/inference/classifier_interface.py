@@ -5,7 +5,6 @@ import pandas as pd
 import joblib
 import json
 import os
-from datetime import datetime
 from config.config import load_config
 from typing import Optional, Dict
 from utils.logger import get_logger
@@ -70,7 +69,7 @@ def predict(embedding: np.ndarray, metadata: Optional[Dict] = None) -> dict:
     Predict the privacy case label given an embedding.
     Returns structured output with metadata and confidence.
     """
-    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824
+    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824,E501
     
     # Load model if not already loaded
     if _classifier is None:
@@ -100,7 +99,7 @@ def predict(embedding: np.ndarray, metadata: Optional[Dict] = None) -> dict:
 
 def reload_model():
     """Force reload of the model artifacts."""
-    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824
+    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824,E501
     _classifier = None
     _metadata = None
     _model_version = None
