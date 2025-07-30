@@ -39,11 +39,18 @@ class TestModelIngestion:
             mock_bucket = Mock()
             mock_client.return_value.bucket.return_value = mock_bucket
             
+            # Create proper Mock objects with name attributes
+            def create_mock_blob(name):
+                mock_blob = Mock()
+                mock_blob.name = name
+                mock_blob.endswith = lambda suffix: name.endswith(suffix)
+                return mock_blob
+            
             # Mock blob listing
             mock_blobs = [
-                Mock(name="pcc-models/v20250729_092110/", endswith=lambda x: x == '/'),
-                Mock(name="pcc-models/v20250729_092253/", endswith=lambda x: x == '/'),
-                Mock(name="pcc-models/v20250728_120000/", endswith=lambda x: x == '/'),
+                create_mock_blob("pcc-models/v20250729_092110/"),
+                create_mock_blob("pcc-models/v20250729_092253/"),
+                create_mock_blob("pcc-models/v20250728_120000/"),
             ]
             mock_bucket.list_blobs.return_value = mock_blobs
             
@@ -71,8 +78,16 @@ class TestModelIngestion:
         
         # Mock today's folder
         mock_bucket = mock_storage_client.return_value.bucket.return_value
+        
+        # Create proper Mock objects with name attributes
+        def create_mock_blob(name):
+            mock_blob = Mock()
+            mock_blob.name = name
+            mock_blob.endswith = lambda suffix: name.endswith(suffix)
+            return mock_blob
+        
         mock_blobs = [
-            Mock(name=f"pcc-models/v{today}_120000/", endswith=lambda x: x == '/'),
+            create_mock_blob(f"pcc-models/v{today}_120000/"),
         ]
         mock_bucket.list_blobs.return_value = mock_blobs
         
@@ -83,8 +98,16 @@ class TestModelIngestion:
         """Test when today's model doesn't exist."""
         # Mock no today's folders
         mock_bucket = mock_storage_client.return_value.bucket.return_value
+        
+        # Create proper Mock objects with name attributes
+        def create_mock_blob(name):
+            mock_blob = Mock()
+            mock_blob.name = name
+            mock_blob.endswith = lambda suffix: name.endswith(suffix)
+            return mock_blob
+        
         mock_blobs = [
-            Mock(name="pcc-models/v20250728_120000/", endswith=lambda x: x == '/'),
+            create_mock_blob("pcc-models/v20250728_120000/"),
         ]
         mock_bucket.list_blobs.return_value = mock_blobs
         
@@ -92,10 +115,19 @@ class TestModelIngestion:
         assert today_folder is None
     
     @patch('joblib.load')
-    def test_download_model_from_gcs(self, mock_joblib_load, mock_storage_client, temp_models_dir):
+    @patch('tempfile.TemporaryDirectory')
+    @patch('shutil.copy2')
+    def test_download_model_from_gcs(self, mock_copy2, mock_temp_dir, mock_joblib_load, mock_storage_client, temp_models_dir):
         """Test downloading model from GCS."""
         # Mock successful model load
         mock_joblib_load.return_value = Mock()
+        
+        # Mock temporary directory
+        mock_temp_dir.return_value.__enter__.return_value = temp_models_dir
+        mock_temp_dir.return_value.__exit__.return_value = None
+        
+        # Mock file copy operations
+        mock_copy2.return_value = None
         
         success, model_path = download_model_from_gcs(
             "v20250729_092110",
@@ -107,7 +139,10 @@ class TestModelIngestion:
     
     def test_update_config_with_model_info(self, temp_models_dir):
         """Test updating config with model information."""
-        # Create test metadata
+        # Create test metadata in the expected location
+        expected_metadata_path = "src/models/metadata.json"
+        os.makedirs(os.path.dirname(expected_metadata_path), exist_ok=True)
+        
         metadata = {
             "model_version": "v20250729_092110",
             "embedding_model": "all-MiniLM-L6-v2",
@@ -115,8 +150,7 @@ class TestModelIngestion:
             "trained_on": "2025-07-29T09:21:10"
         }
         
-        metadata_path = os.path.join(temp_models_dir, "metadata.json")
-        with open(metadata_path, 'w') as f:
+        with open(expected_metadata_path, 'w') as f:
             json.dump(metadata, f)
         
         # Create test config file
@@ -143,6 +177,10 @@ class TestModelIngestion:
         assert updated_config['models']['classifier_path'] == 'src/models/model.joblib'
         assert updated_config['models']['model_version'] == 'v20250729_092110'
         assert updated_config['models']['embedding_model'] == 'all-MiniLM-L6-v2'
+        
+        # Clean up the metadata file we created
+        if os.path.exists(expected_metadata_path):
+            os.remove(expected_metadata_path)
     
     def test_download_model_missing_files(self, mock_storage_client, temp_models_dir):
         """Test downloading when model files are missing."""
