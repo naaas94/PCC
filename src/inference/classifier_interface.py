@@ -70,7 +70,7 @@ def predict(embedding: np.ndarray, metadata: Optional[Dict] = None) -> dict:
     Predict the privacy case label given an embedding.
     Returns structured output with metadata and confidence.
     """
-    global _classifier, _metadata, _model_version, _embedding_model
+    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824
     
     # Load model if not already loaded
     if _classifier is None:
@@ -100,7 +100,7 @@ def predict(embedding: np.ndarray, metadata: Optional[Dict] = None) -> dict:
 
 def reload_model():
     """Force reload of the model artifacts."""
-    global _classifier, _metadata, _model_version, _embedding_model
+    global _classifier, _metadata, _model_version, _embedding_model  # noqa: F824
     _classifier = None
     _metadata = None
     _model_version = None
