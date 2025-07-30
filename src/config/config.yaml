@@ -3,6 +3,9 @@
 bq:
   # Input snapshot (daily partitioned)
   source_table: your-project.your-dataset.source_table
+  
+  # Embedding table (precomputed embeddings)
+  embedding_table: your-project.your-dataset.embedding_table
 
   # Output table destination (MVP-ready)
   output_table: ales-sandbox-465911.PCC_EPs.pcc_inference_output

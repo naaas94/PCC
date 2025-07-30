@@ -521,3 +521,35 @@ Job ID: 4ea43775-1ed8-41e5-ba36-bd83354f7a4c
 2025-07-30 09:38:55 — pcc_pipeline — INFO — Output schema validation passed
 2025-07-30 09:38:55 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
 2025-07-30 09:38:55 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 10:26:28 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:26:36 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.nonexistent_mode.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Found model for today: v20250730_120000
+2025-07-30 10:29:30 — pcc_pipeline — INFO — No model found for today: 20250730
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Downloaded: v20250729_092110/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmplic1ld01\models\model.joblib
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Downloaded: v20250729_092110/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmplic1ld01\models\metadata.yaml
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Config updated with model metadata
+2025-07-30 10:29:30 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Found model for today: v20250730_120000
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Downloaded: v20251231_235959/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmpehptkipo\models\model.joblib
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Downloaded: v20251231_235959/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmpehptkipo\models\metadata.yaml
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Config updated with model metadata
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 10:29:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 10:29:30 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Loaded model metadata
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Prediction complete: 100 successful, 0 failed.
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Output schema validation passed
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 10:29:31 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json

@@ -57,7 +57,7 @@ jobs:
         run: |
           set -o pipefail
           echo "🚀 Starting inference pipeline..."
-          python scripts/run_pipeline.py --skip-ingestion 2>&1 | tee pipeline_output.log
+          python scripts/daily_pipeline_run.py --no-force-latest --sample 2>&1 | tee pipeline_output.log
 
       - name: Get last 50 lines of log for email
         if: always()
@@ -78,6 +78,7 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 587
+          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "[ALERT] PCC Daily Inference Pipeline Failed"
@@ -86,11 +87,11 @@ jobs:
           body: |
             The PCC daily inference pipeline failed.
 
-            Date: ${{ github.event.head_commit.timestamp || 'N/A' }}
+            Date: ${{ github.event.head_commit.timestamp || github.run_id }}
             Commit: ${{ github.sha }}
             Workflow: ${{ github.workflow }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Model Updated: ${{ steps.model_check.outputs.model_updated }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated || 'N/A' }}
 
             Error log (last 50 lines):
             
@@ -102,6 +103,7 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 587
+          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "[SUCCESS] PCC Daily Inference Pipeline Completed"
@@ -110,10 +112,10 @@ jobs:
           body: |
             The PCC daily inference pipeline completed successfully.
 
-            Date: ${{ github.event.head_commit.timestamp || 'N/A' }}
+            Date: ${{ github.event.head_commit.timestamp || github.run_id }}
             Commit: ${{ github.sha }}
             Workflow: ${{ github.workflow }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Model Updated: ${{ steps.model_check.outputs.model_updated }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated || 'N/A' }}
 
             Pipeline completed successfully! 
