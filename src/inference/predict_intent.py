@@ -34,7 +34,12 @@ def predict_batch(df: pd.DataFrame, chunk_size: int = 100) -> pd.DataFrame:
                 results.append({
                     "case_id": row["case_id"],
                     "predicted_label": prediction["predicted_label"],
+                    "subtype_label": prediction["subtype_label"],
                     "confidence": prediction["confidence"],
+                    "model_version": prediction["model_version"],
+                    "embedding_model": prediction["embedding_model"],
+                    "inference_timestamp": prediction["inference_timestamp"],
+                    "prediction_notes": prediction["prediction_notes"],
                     "timestamp": row.get("timestamp", pd.Timestamp.now())
                 })
             except Exception as e:

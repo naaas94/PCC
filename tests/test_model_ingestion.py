@@ -129,29 +129,52 @@ class TestModelIngestion:
         # Mock file copy operations
         mock_copy2.return_value = None
         
+        # Mock blob listing to return actual files
+        mock_bucket = mock_storage_client.return_value.bucket.return_value
+        
+        def create_mock_blob(name):
+            mock_blob = Mock()
+            mock_blob.name = name
+            mock_blob.endswith = lambda suffix: name.endswith(suffix)
+            return mock_blob
+        
+        # Mock blobs that will be downloaded
+        mock_blobs = [
+            create_mock_blob("v20250729_092110/model.joblib"),
+            create_mock_blob("v20250729_092110/metadata.yaml"),
+        ]
+        mock_bucket.list_blobs.return_value = mock_blobs
+        
+        # Mock blob download
+        mock_model_blob = Mock()
+        mock_model_blob.exists.return_value = True
+        mock_model_blob.download_to_filename = Mock()
+        mock_bucket.blob.return_value = mock_model_blob
+        
         success, model_path = download_model_from_gcs(
             "v20250729_092110",
             local_models_dir=temp_models_dir
         )
         
         assert success is True
-        assert model_path == os.path.join(temp_models_dir, "model.joblib")
+        assert model_path == temp_models_dir
     
     def test_update_config_with_model_info(self, temp_models_dir):
         """Test updating config with model information."""
         # Create test metadata in the expected location
-        expected_metadata_path = "src/models/metadata.json"
+        expected_metadata_path = "src/models/metadata.yaml"
         os.makedirs(os.path.dirname(expected_metadata_path), exist_ok=True)
         
         metadata = {
-            "model_version": "v20250729_092110",
+            "version": "v20250729_092110",
             "embedding_model": "all-MiniLM-L6-v2",
             "classifier": "LogisticRegression",
             "trained_on": "2025-07-29T09:21:10"
         }
         
         with open(expected_metadata_path, 'w') as f:
-            json.dump(metadata, f)
+            import yaml
+            yaml.dump(metadata, f)
         
         # Create test config file
         config_path = os.path.join(temp_models_dir, "config.yaml")
@@ -174,7 +197,7 @@ class TestModelIngestion:
             import yaml
             updated_config = yaml.safe_load(f)
         
-        assert updated_config['models']['classifier_path'] == 'src/models/model.joblib'
+        assert updated_config['models']['classifier_path'] == 'old/path.pkl'  # Should not change
         assert updated_config['models']['model_version'] == 'v20250729_092110'
         assert updated_config['models']['embedding_model'] == 'all-MiniLM-L6-v2'
         
@@ -251,16 +274,19 @@ def test_model_ingestion_integration():
             ]
             mock_bucket.list_blobs.return_value = mock_blobs
             
-            # Mock blob operations
-            mock_model_blob = Mock()
-            mock_model_blob.exists.return_value = True
-            mock_model_blob.download_to_filename = Mock()
-            
-            mock_metadata_blob = Mock()
-            mock_metadata_blob.exists.return_value = True
-            mock_metadata_blob.download_to_filename = Mock()
-            
-            mock_bucket.blob.side_effect = lambda name: mock_model_blob if 'model.joblib' in name else mock_metadata_blob
+            # Mock blob operations for download
+            def create_mock_download_blob(name):
+                mock_blob = Mock()
+                mock_blob.name = name
+                mock_blob.exists.return_value = True
+                mock_blob.download_to_filename = Mock()
+                return mock_blob
+
+            # Mock blobs that will be downloaded
+            mock_download_blobs = [
+                create_mock_download_blob(f"v{future_date}/model.joblib"),
+                create_mock_download_blob(f"v{future_date}/metadata.yaml"),
+            ]
             
             # Mock joblib load and file operations
             with patch('joblib.load') as mock_joblib_load, \
@@ -291,12 +317,15 @@ def test_model_ingestion_integration():
                 # Test 3: Download model
                 print("Testing download_model_from_gcs...")
                 try:
+                    # Override list_blobs for the download function
+                    mock_bucket.list_blobs.return_value = mock_download_blobs
+                    
                     success, model_path = download_model_from_gcs(
                         f"v{future_date}",
                         local_models_dir=models_dir
                     )
                     assert success is True
-                    assert model_path == os.path.join(models_dir, "model.joblib")
+                    assert model_path == models_dir
                     print(f"✓ Model downloaded successfully to: {model_path}")
                 except Exception as e:
                     print(f"❌ Download model failed: {str(e)}")
@@ -306,18 +335,19 @@ def test_model_ingestion_integration():
                 print("Testing update_config_with_model_info...")
                 
                 # Create test metadata in the expected location
-                expected_metadata_path = "src/models/metadata.json"
+                expected_metadata_path = "src/models/metadata.yaml"
                 os.makedirs(os.path.dirname(expected_metadata_path), exist_ok=True)
                 
                 metadata = {
-                    "model_version": f"v{future_date}",
+                    "version": f"v{future_date}",
                     "embedding_model": "all-MiniLM-L6-v2",
                     "classifier": "LogisticRegression",
                     "trained_on": "2025-12-31T23:59:59"
                 }
                 
                 with open(expected_metadata_path, 'w') as f:
-                    json.dump(metadata, f)
+                    import yaml
+                    yaml.dump(metadata, f)
                 
                 # Create test config
                 config_path = os.path.join(models_dir, "config.yaml")
@@ -338,7 +368,7 @@ def test_model_ingestion_integration():
                 with open(config_path, 'r') as f:
                     updated_config = yaml.safe_load(f)
                 
-                assert updated_config['models']['classifier_path'] == 'src/models/model.joblib'
+                assert updated_config['models']['classifier_path'] == 'old/path.pkl'  # Should not change
                 assert updated_config['models']['model_version'] == f"v{future_date}"
                 assert updated_config['models']['embedding_model'] == 'all-MiniLM-L6-v2'
                 print("✓ Config updated successfully")

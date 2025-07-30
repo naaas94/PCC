@@ -1,0 +1,35 @@
+# config.test.yaml — test configuration for PCC
+
+bq:
+  # Input snapshot (daily partitioned)
+  source_table: test-project.test-dataset.source_table
+
+  # Output table destination (MVP-ready)
+  output_table: test-project.test-dataset.output_table
+  
+  # Monitoring table for logging pipeline runs
+  monitoring_table: test-project.test-dataset.pcc_monitoring_logs
+  
+models:
+  # Local paths to model artifacts (dynamically updated by ingestion script)
+  classifier_path: src/models/model.joblib
+
+  # Embedding model used to generate vectors in snapshot
+  embedding_model: all-MiniLM-L6-v2
+  
+  # Model version (updated by ingestion script)
+  model_version: v0.1.1
+  
+  # Additional model info (populated from metadata.json)
+  trained_on: ""
+  classifier_type: "LogisticRegression"
+
+runtime:
+  # Runtime mode: dev | prod | dry_run (used for CLI behavior and Flyte switching)
+  mode: test
+
+  # Prevent writing to BigQuery if true (used during development/testing)
+  dry_run: true
+
+  # Date partition to process — format: YYYYMMDD (used for snapshot resolution)
+  partition_date: 20250101 

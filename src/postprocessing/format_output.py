@@ -35,7 +35,11 @@ def format_predictions(
         raise
     
     # Ensure all required columns exist
-    required_columns = ["case_id", "predicted_label", "confidence", "ingestion_time"]
+    required_columns = [
+        "case_id", "predicted_label", "subtype_label", "confidence", 
+        "model_version", "embedding_model", "inference_timestamp", 
+        "prediction_notes", "ingestion_time"
+    ]
     missing_columns = [col for col in required_columns if col not in df.columns]
     if missing_columns:
         raise ValueError(f"Missing required columns: {missing_columns}")
