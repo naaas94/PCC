@@ -6,7 +6,7 @@ bq:
 models:
   classifier_path: src/models/model.joblib
   classifier_type: LogisticRegression
-  embedding_model: all-MiniLM-L6-v2
+  embedding_model: all-MiniLM-L6-v2 + TF-IDF
   model_version: v20250729_120642
   trained_on: ''
 runtime:
