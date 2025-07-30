@@ -35,13 +35,29 @@ jobs:
           base64 ${{ github.workspace }}/gcp-key.json
           echo "==== END OF FILE ===="
 
+      - name: Check for new models
+        id: model_check
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+        run: |
+          echo "🔍 Checking for new models in GCS..."
+          python src/ingestion/load_model_from_gcs.py --force-latest 2>&1 | tee model_ingestion.log
+          if [ $? -eq 0 ]; then
+            echo "✅ Model ingestion completed successfully"
+            echo "model_updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Model ingestion failed, continuing with existing model"
+            echo "model_updated=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run inference pipeline
         id: run_pipeline
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
         run: |
           set -o pipefail
-          python scripts/run_pipeline.py 2>&1 | tee pipeline_output.log
+          echo "🚀 Starting inference pipeline..."
+          python scripts/run_pipeline.py --skip-ingestion 2>&1 | tee pipeline_output.log
 
       - name: Send failure notification email
         if: failure()
@@ -61,6 +77,7 @@ jobs:
             Commit: ${{ github.sha }}
             Workflow: ${{ github.workflow }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated }}
 
             Error log (last 50 lines):
             
@@ -75,4 +92,26 @@ jobs:
           tail -n 50 pipeline_output.log > log_tail.txt
           echo "log_tail<<EOF" >> $GITHUB_OUTPUT
           cat log_tail.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT 
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send success notification email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "[SUCCESS] PCC Daily Inference Pipeline Completed"
+          to: alejandroa.garay.ag@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            The PCC daily inference pipeline completed successfully.
+
+            Date: ${{ github.event.head_commit.timestamp }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated }}
+
+            Pipeline completed successfully! 

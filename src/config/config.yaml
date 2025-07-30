@@ -18,7 +18,7 @@ models:
   embedding_model: all-MiniLM-L6-v2
   
   # Model version (updated by ingestion script)
-  model_version: v0.1
+  model_version: v0.1.1
   
   # Additional model info (populated from metadata.json)
   trained_on: ""

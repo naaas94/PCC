@@ -94,3 +94,229 @@
 2025-07-14 09:35:53 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
 2025-07-14 09:35:59 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
 2025-07-14 09:36:00 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 08:09:29 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250730_120000
+2025-07-30 08:17:35 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:17:35 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:17:35 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:17:57 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:17:57 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:17:57 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:10 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:18:10 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:18:10 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:35 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:18:35 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:18:35 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:35 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmpqpg26n0n\models
+2025-07-30 08:18:35 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:18:42 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:18:42 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:18:42 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:42 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmpm9obkmq7\models
+2025-07-30 08:18:42 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:18:55 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:18:55 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:18:55 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:55 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmpyaofng5v\models
+2025-07-30 08:18:55 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:18:58 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:18:58 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:18:58 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:18:58 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmpv2qgk4wf\models
+2025-07-30 08:18:58 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:25:19 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:25:19 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:25:19 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:25:19 — pcc_pipeline — INFO — Date: 2025-07-30 08:25:19
+2025-07-30 08:25:19 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:25:19 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 08:25:19 — pcc_pipeline — INFO — Using today's partition: 20250730
+2025-07-30 08:25:19 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:25:21 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:25:24 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:25:24 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 08:25:26 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:25:26 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:25:26 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:25:26 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:25:26 — pcc_pipeline — ERROR — DAILY PIPELINE RUN FAILED
+2025-07-30 08:25:26 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:25:58 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:25:58 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:25:58 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:25:58 — pcc_pipeline — INFO — Date: 2025-07-30 08:25:58
+2025-07-30 08:25:58 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:25:58 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 08:25:58 — pcc_pipeline — INFO — Using today's partition: 20250730
+2025-07-30 08:25:58 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:25:59 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:26:03 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:26:03 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 08:26:06 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:26:06 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:26:06 — pcc_pipeline — WARNING — Model ingestion failed, continuing with existing model
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Starting PCC pipeline with BigQuery data
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Partition date: 20250730
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Checking for new models...
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:26:06 — pcc_pipeline — INFO — Model ingestion completed successfully
+2025-07-30 08:26:10 — pcc_pipeline — INFO — Running query for partition 20250730...
+2025-07-30 08:26:11 — pcc_pipeline — ERROR — Daily pipeline run failed: 400 Table "redacted_20250730" must be qualified with a dataset (e.g. dataset.table).; reason: invalid, location: redacted_20250730, message: Table "redacted_20250730" must be qualified with a dataset (e.g. dataset.table).
+
+Location: EU
+Job ID: 4ea43775-1ed8-41e5-ba36-bd83354f7a4c
+
+2025-07-30 08:26:11 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:26:11 — pcc_pipeline — ERROR — DAILY PIPELINE RUN FAILED
+2025-07-30 08:26:11 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:26:38 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:26:38 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:26:38 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Date: 2025-07-30 08:26:38
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Using sample data
+2025-07-30 08:26:38 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:26:39 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:26:43 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:26:43 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 08:26:47 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:26:47 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:26:47 — pcc_pipeline — WARNING — Model ingestion failed, continuing with existing model
+2025-07-30 08:26:47 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:26:47 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:26:47 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:26:47 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:26:47 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:26:47 — pcc_pipeline — ERROR — Daily pipeline run failed: Model file not found: src/models/model.joblib
+2025-07-30 08:26:47 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:26:47 — pcc_pipeline — ERROR — DAILY PIPELINE RUN FAILED
+2025-07-30 08:26:47 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 08:27:12 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:12 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:27:12 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Date: 2025-07-30 08:27:12
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Using sample data
+2025-07-30 08:27:12 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:27:14 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:27:17 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:27:17 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 08:27:20 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:27:20 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:27:20 — pcc_pipeline — WARNING — Model ingestion failed, continuing with existing model
+2025-07-30 08:27:20 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:27:20 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:27:20 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:27:20 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:27:20 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:27:21 — pcc_pipeline — INFO — Loaded classifier from src/models/pcc_v0.1.1.pkl
+2025-07-30 08:27:21 — pcc_pipeline — WARNING — No metadata file found
+2025-07-30 08:27:21 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:27:21 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 08:27:21 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:27:21 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:27:37 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-30 08:27:39 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 08:27:39 — pcc_pipeline — INFO — Step 3: Logging results...
+2025-07-30 08:27:39 — pcc_pipeline — INFO — Pipeline completed successfully
+2025-07-30 08:27:39 — pcc_pipeline — INFO —    Processed 100 cases
+2025-07-30 08:27:39 — pcc_pipeline — INFO —    Model version: v0.1.1
+2025-07-30 08:27:39 — pcc_pipeline — INFO —    Prediction distribution:
+2025-07-30 08:27:39 — pcc_pipeline — INFO —      NOT_PC: 70 (70.0%)
+2025-07-30 08:27:39 — pcc_pipeline — INFO —      PC: 30 (30.0%)
+2025-07-30 08:27:39 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:39 — pcc_pipeline — INFO — DAILY PIPELINE RUN COMPLETED SUCCESSFULLY
+2025-07-30 08:27:39 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:47 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:47 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:27:47 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Date: 2025-07-30 08:27:47
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Force Latest Model: True
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Using sample data
+2025-07-30 08:27:47 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:27:48 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:27:52 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:27:52 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:27:52 — pcc_pipeline — WARNING — Model ingestion failed, continuing with existing model
+2025-07-30 08:27:52 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:27:52 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:27:52 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:27:52 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:27:52 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:27:53 — pcc_pipeline — INFO — Loaded classifier from src/models/pcc_v0.1.1.pkl
+2025-07-30 08:27:53 — pcc_pipeline — WARNING — No metadata file found
+2025-07-30 08:27:53 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:27:53 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 08:27:53 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:27:53 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:28:07 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-30 08:28:08 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 08:28:08 — pcc_pipeline — INFO — Step 3: Logging results...
+2025-07-30 08:28:08 — pcc_pipeline — INFO — Pipeline completed successfully
+2025-07-30 08:28:08 — pcc_pipeline — INFO —    Processed 100 cases
+2025-07-30 08:28:08 — pcc_pipeline — INFO —    Model version: v0.1.1
+2025-07-30 08:28:08 — pcc_pipeline — INFO —    Prediction distribution:
+2025-07-30 08:28:08 — pcc_pipeline — INFO —      NOT_PC: 70 (70.0%)
+2025-07-30 08:28:08 — pcc_pipeline — INFO —      PC: 30 (30.0%)
+2025-07-30 08:28:08 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:28:08 — pcc_pipeline — INFO — DAILY PIPELINE RUN COMPLETED SUCCESSFULLY
+2025-07-30 08:28:08 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:30:24 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:30:24 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:30:24 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:30:24 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:30:30 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:30:30 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:30:30 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:30:30 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:30:31 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 08:30:31 — pcc_pipeline — WARNING — No metadata file found
+2025-07-30 08:30:31 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:30:31 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 08:30:31 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:30:32 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:30:46 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-30 08:30:47 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 08:30:51 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:30:51 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 08:30:51 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Date: 2025-07-30 08:30:51
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Mode: dev
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Force Latest Model: True
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Using sample data
+2025-07-30 08:30:51 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 08:30:52 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 08:30:55 — pcc_pipeline — WARNING — No model folders found in GCS
+2025-07-30 08:30:55 — pcc_pipeline — ERROR — No model folders found in GCS
+2025-07-30 08:30:55 — pcc_pipeline — WARNING — Model ingestion failed, continuing with existing model
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 08:30:55 — pcc_pipeline — WARNING — No metadata file found
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 08:30:55 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:30:56 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:31:10 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-30 08:31:11 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 08:31:11 — pcc_pipeline — INFO — Step 3: Logging results...
+2025-07-30 08:31:11 — pcc_pipeline — INFO — Pipeline completed successfully
+2025-07-30 08:31:11 — pcc_pipeline — INFO —    Processed 100 cases
+2025-07-30 08:31:11 — pcc_pipeline — INFO —    Model version: v0.1.1
+2025-07-30 08:31:11 — pcc_pipeline — INFO —    Prediction distribution:
+2025-07-30 08:31:11 — pcc_pipeline — INFO —      NOT_PC: 70 (70.0%)
+2025-07-30 08:31:11 — pcc_pipeline — INFO —      PC: 30 (30.0%)
+2025-07-30 08:31:11 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:31:11 — pcc_pipeline — INFO — DAILY PIPELINE RUN COMPLETED SUCCESSFULLY
+2025-07-30 08:31:11 — pcc_pipeline — INFO — ============================================================
