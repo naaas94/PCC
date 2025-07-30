@@ -20,10 +20,10 @@ def test_load_config_default():
     assert config["runtime"]["mode"] == "dev"
 
 def test_load_config_test_mode():
-    """Test loading config with test mode - falls back to base config when test file doesn't exist"""
+    """Test loading config with test mode - uses test config file"""
     config = load_config("test")
-    # Since config.test.yaml doesn't exist, it falls back to base config.yaml which has mode: dev
-    assert config["runtime"]["mode"] == "dev"
+    # Now that config.test.yaml exists, it should load test mode
+    assert config["runtime"]["mode"] == "test"
 
 def test_config_structure():
     """Test config has required structure"""
