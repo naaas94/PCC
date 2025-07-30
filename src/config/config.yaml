@@ -11,11 +11,18 @@ bq:
   monitoring_table: ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
   
 models:
-  # Local paths to model artifacts (can later be migrated to GCS)
-  classifier_path: src/models/pcc_v0.1.1.pkl
+  # Local paths to model artifacts (dynamically updated by ingestion script)
+  classifier_path: src/models/model.joblib
 
   # Embedding model used to generate vectors in snapshot
   embedding_model: all-MiniLM-L6-v2
+  
+  # Model version (updated by ingestion script)
+  model_version: v0.1
+  
+  # Additional model info (populated from metadata.json)
+  trained_on: ""
+  classifier_type: "LogisticRegression"
 
 runtime:
   # Runtime mode: dev | prod | dry_run (used for CLI behavior and Flyte switching)

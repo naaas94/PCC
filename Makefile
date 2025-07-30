@@ -1,7 +1,7 @@
 # PCC — PRIVACY CASE CLASSIFIER
 # Development automation for fully orchestrated system
 
-.PHONY: help install test format lint check clean run setup bq-setup logs monitor
+.PHONY: help install test format lint check clean run setup bq-setup logs monitor ingest-model ingest-and-run
 
 # Default target
 help:
@@ -16,6 +16,8 @@ help:
 	@echo "  lint      - Lint code with flake8"
 	@echo "  check     - Run format and lint checks"
 	@echo "  run       - Run pipeline with sample data"
+	@echo "  ingest-model - Ingest latest model from GCS"
+	@echo "  ingest-and-run - Ingest model and run pipeline"
 	@echo "  bq-setup  - Setup BigQuery tables"
 	@echo "  logs      - View recent logs"
 	@echo "  monitor   - Check BigQuery monitoring data"
@@ -64,6 +66,17 @@ lint:
 check: format lint
 	@echo "✓ All quality checks passed"
 
+# Model ingestion
+ingest-model:
+	@echo "Ingesting latest model from GCS..."
+	python src/ingestion/load_model_from_gcs.py --force-latest
+	@echo "✓ Model ingestion completed"
+
+ingest-today:
+	@echo "Ingesting today's model from GCS (if available)..."
+	python src/ingestion/load_model_from_gcs.py
+	@echo "✓ Model ingestion completed"
+
 # Pipeline execution
 run:
 	@echo "Running pipeline with sample data..."
@@ -73,6 +86,14 @@ run-bq:
 	@echo "Running pipeline with BigQuery data..."
 	@echo "Usage: make run-bq PARTITION=20250101"
 	python scripts/run_pipeline.py --partition $(PARTITION) --mode dev
+
+ingest-and-run:
+	@echo "Ingesting latest model and running pipeline..."
+	python scripts/ingest_and_run_pipeline.py
+
+ingest-and-run-today:
+	@echo "Ingesting today's model and running pipeline..."
+	python scripts/ingest_and_run_pipeline.py
 
 # Logging and monitoring
 logs:

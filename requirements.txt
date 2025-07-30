@@ -13,6 +13,7 @@ transformers==4.39.3
 
 # Google Cloud SDKs
 google-cloud-bigquery==3.17.2
+google-cloud-storage==2.14.0
 google-cloud-core==2.4.1
 google-auth==2.29.0
 
