@@ -162,19 +162,19 @@ class TestModelIngestion:
     def test_update_config_with_model_info(self, temp_models_dir):
         """Test updating config with model information."""
         # Create test metadata in the expected location
-        expected_metadata_path = "src/models/metadata.yaml"
+        expected_metadata_path = "src/models/metadata.json"
         os.makedirs(os.path.dirname(expected_metadata_path), exist_ok=True)
-        
+    
         metadata = {
-            "version": "v20250729_092110",
+            "model_version": "v20250729_092110",
             "embedding_model": "all-MiniLM-L6-v2",
             "classifier": "LogisticRegression",
             "trained_on": "2025-07-29T09:21:10"
         }
-        
+    
         with open(expected_metadata_path, 'w') as f:
-            import yaml
-            yaml.dump(metadata, f)
+            import json
+            json.dump(metadata, f)
         
         # Create test config file
         config_path = os.path.join(temp_models_dir, "config.yaml")
@@ -335,19 +335,19 @@ def test_model_ingestion_integration():
                 print("Testing update_config_with_model_info...")
                 
                 # Create test metadata in the expected location
-                expected_metadata_path = "src/models/metadata.yaml"
+                expected_metadata_path = "src/models/metadata.json"
                 os.makedirs(os.path.dirname(expected_metadata_path), exist_ok=True)
                 
                 metadata = {
-                    "version": f"v{future_date}",
+                    "model_version": f"v{future_date}",
                     "embedding_model": "all-MiniLM-L6-v2",
                     "classifier": "LogisticRegression",
                     "trained_on": "2025-12-31T23:59:59"
                 }
                 
                 with open(expected_metadata_path, 'w') as f:
-                    import yaml
-                    yaml.dump(metadata, f)
+                    import json
+                    json.dump(metadata, f)
                 
                 # Create test config
                 config_path = os.path.join(models_dir, "config.yaml")

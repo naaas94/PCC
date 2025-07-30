@@ -56,4 +56,4 @@ def test_config():
 @pytest.fixture
 def sample_embeddings():
     """Sample embeddings for testing"""
-    return np.random.randn(10, 384) 
+    return np.random.randn(10, 584) 
