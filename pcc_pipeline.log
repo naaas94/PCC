@@ -320,3 +320,48 @@ Job ID: 4ea43775-1ed8-41e5-ba36-bd83354f7a4c
 2025-07-30 08:31:11 — pcc_pipeline — INFO — ============================================================
 2025-07-30 08:31:11 — pcc_pipeline — INFO — DAILY PIPELINE RUN COMPLETED SUCCESSFULLY
 2025-07-30 08:31:11 — pcc_pipeline — INFO — ============================================================
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:02 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Successfully loaded model from v20250729_092110
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmp355642p1\models
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Updated config with model info from v20250729_092110
+2025-07-30 08:36:02 — pcc_pipeline — ERROR — Failed to load model from v20250729_092110: [Errno 2] No such file or directory: 'C:\\Users\\aleja\\AppData\\Local\\Temp\\tmpvkhocmvr\\model.joblib'
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmp7jz9pu0c\models
+2025-07-30 08:36:02 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:31 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Successfully loaded model from v20250729_092110
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmp9nzo_kmm\models
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Updated config with model info from v20250729_092110
+2025-07-30 08:36:31 — pcc_pipeline — ERROR — Failed to load model from v20250729_092110: [Errno 2] No such file or directory: 'C:\\Users\\aleja\\AppData\\Local\\Temp\\tmp01kg4qej\\model.joblib'
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmp0sh7idqr\models
+2025-07-30 08:36:31 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:37 — pcc_pipeline — INFO — No model folder found for today (20250730)
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Successfully loaded model from v20250729_092110
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmp0i8ludzw\models
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Updated config with model info from v20250729_092110
+2025-07-30 08:36:37 — pcc_pipeline — ERROR — Failed to load model from v20250729_092110: [Errno 2] No such file or directory: 'C:\\Users\\aleja\\AppData\\Local\\Temp\\tmpbacr91x5\\model.joblib'
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Found today's model folder: v20250730_120000
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Successfully loaded model from v20251231_235959
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Model and metadata downloaded to C:\Users\aleja\AppData\Local\Temp\tmpkmf5r1wy\models
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Updated config with model info from v20251231_235959
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 08:36:37 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 08:36:38 — pcc_pipeline — WARNING — No metadata file found
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Prediction complete: 100 successful, 0 failed.
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 08:36:38 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
