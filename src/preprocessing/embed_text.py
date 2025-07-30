@@ -8,7 +8,7 @@ logger = get_logger()
 
 def validate_embeddings(
     df: pd.DataFrame, 
-    expected_dim: int = 584, 
+    expected_dim: int = 584,  # Combined MiniLM + TF-IDF embeddings
     debug: bool = False
 ) -> pd.DataFrame:
     import numpy as np

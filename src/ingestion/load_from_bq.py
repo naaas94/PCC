@@ -28,7 +28,7 @@ def load_partitioned_data(partition_date: str) -> pd.DataFrame:
         query = f"""
             SELECT
                 c.core.case_number AS case_id,
-                e.embeddings_allminilm AS embedding_vector,
+                e.embeddings_allminilm AS embedding_vector,  # Combined MiniLM + TF-IDF embeddings (584 dimensions)
                 c.core.request_time AS timestamp
             FROM `{case_table}` AS c
             JOIN `{embedding_table}` AS e
