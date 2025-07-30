@@ -2,9 +2,9 @@
 
 **Original Author:** Alejandro Garay  
 **Project Type:** End-to-End ML Inference Pipeline  
-**Stack:** BigQuery • MiniLM • Scikit-learn • Pandas • Pydantic • Docker  
-**Use Case:** Classification of customer support messages into privacy-related intent categories using precomputed sentence embeddings and a swappable inference module.  
-**Status:** Production-ready with full BigQuery orchestration.
+**Stack:** BigQuery • MiniLM • Scikit-learn • Pandas • Pydantic • Docker • Google Cloud Storage  
+**Use Case:** Classification of customer support messages into privacy-related intent categories using precomputed sentence embeddings and a swappable inference module with automatic model ingestion from GCS.  
+**Status:** Production-ready with full BigQuery orchestration and dynamic model management.
 
 ---
 
@@ -18,7 +18,7 @@ This project was originally created by Alejandro Garay as a privacy case classif
 
 PCC is a production-ready implementation of a text classification system designed to process inbound customer support messages and identify privacy-related intents under GDPR and CCPA regulations. The system uses precomputed sentence embeddings and a modular inference pipeline to classify messages as privacy cases (PC) or non-privacy cases (NOT_PC).
 
-**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **NEW:** Automatic model ingestion from GCS with dynamic model loading and version management.
+**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
 
 **How it works:** Daily customer support data is ingested from BigQuery, preprocessed using MiniLM embeddings, classified through a swappable inference module with automatic model updates from GCS, and output with full metadata and confidence scores to BigQuery tables with monitoring logs.
 
@@ -31,6 +31,7 @@ PCC is a production-ready implementation of a text classification system designe
 * [Project Structure](#project-structure)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
+* [Model Management](#model-management)
 * [Testing](#testing)
 * [Status and Roadmap](#status-and-roadmap)
 * [Design Principles](#design-principles)
@@ -39,7 +40,7 @@ PCC is a production-ready implementation of a text classification system designe
 
 ## PROJECT PURPOSE
 
-PCC (Privacy Case Classifier) is a modular, orchestrated machine learning pipeline engineered to process daily customer support case data, infer privacy-related intent labels, and output structured, versioned results to BigQuery with comprehensive monitoring.
+PCC (Privacy Case Classifier) is a modular, orchestrated machine learning pipeline engineered to process daily customer support case data, infer privacy-related intent labels, and output structured, versioned results to BigQuery with comprehensive monitoring and dynamic model management.
 
 The system is designed for:
 * Clear module boundaries (decoupled and testable)
@@ -47,6 +48,7 @@ The system is designed for:
 * Reproducibility and traceability (model and embedding versions)
 * Production monitoring, retraining, and drift detection
 * Full BigQuery integration with error handling and retry logic
+* Automatic model ingestion and version management from GCS
 
 ---
 
@@ -64,7 +66,8 @@ The system is designed for:
 
 **Inference**
 * Swappable model interface predict() with version control
-* Dummy model (LogReg) with confidence simulation as placeholder
+* Dynamic model loading with automatic GCS ingestion
+* Model caching and reloading for performance
 * Structured error handling to avoid pipeline interruption
 
 **Postprocessing**
@@ -87,6 +90,7 @@ The system is designed for:
 * Dynamic model loading with version tracking
 * Support for today's model priority or latest model fallback
 * Seamless integration with existing pipeline
+* Model caching and reloading capabilities
 
 ---
 
@@ -97,7 +101,7 @@ PCC/
 ├── src/
 │   ├── config/          ← Configuration management
 │   ├── models/          ← Model artifacts and metadata
-│   ├── ingestion/       ← load_from_bq.py
+│   ├── ingestion/       ← load_from_bq.py, load_model_from_gcs.py
 │   ├── preprocessing/   ← embed_text.py
 │   ├── inference/       ← classifier_interface.py, predict_intent.py
 │   ├── postprocessing/  ← format_output.py
@@ -105,7 +109,7 @@ PCC/
 │   ├── output/          ← write_to_bq.py
 │   └── utils/           ← logger.py, schema_validator.py
 ├── tests/               ← Test suite and fixtures
-├── scripts/             ← run_pipeline.py, generate_sample_data.py
+├── scripts/             ← run_pipeline.py, ingest_and_run_pipeline.py
 ├── schemas/             ← JSON schema definitions
 ├── docs/                ← Technical documentation
 │   ├── model_analysis.ipynb ← Model training and analysis
@@ -165,6 +169,9 @@ make ingest-today
 
 # Ingest and run pipeline in one command
 make ingest-and-run
+
+# Run daily pipeline with automatic model ingestion
+make daily-run
 ```
 
 ### Running the Pipeline
@@ -175,10 +182,10 @@ Test the full pipeline locally with synthetic data:
 python scripts/run_pipeline.py --sample
 ```
 
-Run with BigQuery data (requires credentials):
+Run with BigQuery data and model ingestion:
 
 ```bash
-python scripts/run_pipeline.py --partition 20250101 --mode dev
+python scripts/run_pipeline.py --partition 20250101 --mode dev --force-latest
 ```
 
 ### Development Commands
@@ -195,6 +202,12 @@ make lint
 
 # Run pipeline with sample data
 make run
+
+# Run pipeline with model ingestion
+make run-with-model
+
+# Run with BigQuery data and model ingestion
+make run-bq-with-model PARTITION=20250101
 ```
 
 ---
@@ -230,6 +243,54 @@ The system uses the following BigQuery tables:
 
 ---
 
+## MODEL MANAGEMENT
+
+### GCS Model Storage
+
+Models are stored in Google Cloud Storage with the following structure:
+```
+pcc-datasets/pcc-models/
+├── v20250101_143022/
+│   ├── model.joblib
+│   └── metadata.json
+├── v20250102_091545/
+│   ├── model.joblib
+│   └── metadata.json
+└── ...
+```
+
+### Model Ingestion Process
+
+1. **Discovery**: System searches for model folders in GCS bucket
+2. **Priority**: Today's model (if available) takes priority over latest model
+3. **Download**: Model.joblib and metadata.json are downloaded to local storage
+4. **Validation**: Model is validated by attempting to load it
+5. **Configuration**: Config.yaml is updated with new model information
+6. **Integration**: Model is seamlessly integrated with existing pipeline
+
+### Model Versioning
+
+- **Naming Convention**: `vYYYYMMDD_HHMMSS` format
+- **Metadata Tracking**: Model version, embedding model, training date
+- **Fallback Strategy**: Latest available model if today's model not found
+- **Cache Management**: Model caching with reload capabilities
+
+### Available Commands
+
+```bash
+# Model ingestion
+make ingest-model          # Ingest latest model
+make ingest-today          # Ingest today's model (if available)
+make ingest-and-run        # Ingest model and run pipeline
+
+# Pipeline execution with models
+make run-with-model        # Run with sample data + model ingestion
+make run-bq-with-model     # Run with BigQuery + model ingestion
+make daily-run             # Daily pipeline with automatic model ingestion
+```
+
+---
+
 ## TESTING
 
 The system includes comprehensive testing:
@@ -253,6 +314,7 @@ pytest tests/ --cov=src --cov-report=html
 - Pipeline smoke tests
 - BigQuery integration (mocked)
 - Error handling scenarios
+- Model ingestion and loading
 
 ---
 
@@ -267,6 +329,7 @@ pytest tests/ --cov=src --cov-report=html
 - **Modular Architecture**: Decoupled components for easy testing and maintenance
 - **Docker Support**: Containerized deployment ready
 - **CLI Interface**: Flexible command-line execution
+- **Dynamic Model Management**: Automatic GCS model ingestion and version control
 
 ### 🔧 Current Capabilities
 
@@ -275,6 +338,8 @@ pytest tests/ --cov=src --cov-report=html
 - **Monitoring**: Complete pipeline execution tracking
 - **Error Recovery**: Graceful handling of BigQuery failures
 - **Performance**: Sub-second processing for sample data
+- **Model Management**: Automatic model ingestion and version tracking
+- **Model Caching**: Efficient model loading and reloading
 
 ### 🚀 Next Steps
 
@@ -283,6 +348,7 @@ pytest tests/ --cov=src --cov-report=html
 3. **Performance Optimization**: Scale for larger data volumes
 4. **Alerting**: Add monitoring alerts for pipeline failures
 5. **CI/CD**: Implement automated testing and deployment
+6. **Model Performance Monitoring**: Track model drift and performance metrics
 
 ---
 
@@ -302,6 +368,9 @@ Architecture supports horizontal scaling and can handle increased data volumes.
 
 ### Maintainability
 Clean code structure, comprehensive documentation, and automated testing support long-term maintenance.
+
+### Model Management
+Dynamic model ingestion, version control, and seamless integration support production model lifecycle management.
 
 ---
 
