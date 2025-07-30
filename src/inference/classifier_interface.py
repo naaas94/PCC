@@ -13,10 +13,11 @@ from utils.logger import get_logger
 logger = get_logger()
 
 # Global variables to cache model and metadata
-_classifier = None
-_metadata = None
-_model_version = None
-_embedding_model = None
+# These are intentionally unused at module level - they're used within functions
+_classifier = None  # noqa: F824
+_metadata = None  # noqa: F824
+_model_version = None  # noqa: F824
+_embedding_model = None  # noqa: F824
 
 
 def _load_model_artifacts():
