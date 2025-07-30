@@ -16,7 +16,7 @@ def get_logger(name: str = "pcc_pipeline") -> logging.Logger:
         )
         handler.setFormatter(formatter)
         logger.addHandler(handler)
-        
+
         # Add file handler for BigQuery operations
         file_handler = logging.FileHandler("pcc_pipeline.log")
         file_handler.setLevel(logging.INFO)
@@ -39,7 +39,7 @@ def get_bq_logger(name: str = "pcc_bigquery") -> logging.Logger:
         )
         handler.setFormatter(formatter)
         logger.addHandler(handler)
-        
+
         # Add file handler for BigQuery operations
         file_handler = logging.FileHandler("pcc_bigquery.log")
         file_handler.setLevel(logging.DEBUG)

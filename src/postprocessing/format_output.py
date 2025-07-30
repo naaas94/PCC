@@ -1,47 +1,47 @@
 # src/postprocessing/format_output.py
 
 import pandas as pd
-from typing import Dict
-from utils.schema_validator import validate_schema
 from utils.logger import get_logger
+from utils.schema_validator import validate_schema
 
 logger = get_logger()
 
 
-def format_predictions(df: pd.DataFrame, schema_path: str = "schemas/output_schema.json") -> pd.DataFrame:
+def format_predictions(
+    df: pd.DataFrame, 
+    schema_path: str = "schemas/output_schema.json"
+) -> pd.DataFrame:
     """
-    Postprocess prediction DataFrame:
-    - Validate schema and fail fast if broken
-    - Ensure output column order and integrity
-    - Log output status
+    Format prediction results for output to BigQuery.
+    Validates against output schema.
     """
-    # Map numeric predictions to human-readable labels
-    label_map = {"0": "NOT_PC", "1": "PC"} #5/21 added this as a placeholder for mvp, will change it for label_encoder layer when subtypes are introduced
+    # Convert numeric labels to string labels
+    # 5/21 added this as a placeholder for mvp, will change it for label_encoder layer when subtypes are introduced
+    label_map = {"0": "NOT_PC", "1": "PC"}
     df["predicted_label"] = df["predicted_label"].replace(label_map).astype("string")
     
-    # Ensure subtype_label is properly formatted as nullable string
-    df["subtype_label"] = df["subtype_label"].astype("string[pyarrow]")
+    # Ensure confidence is float
+    df["confidence"] = pd.to_numeric(df["confidence"], errors="coerce")
     
-    # Add ingestion_time for partitioning
-    df["ingestion_time"] = pd.Timestamp.utcnow()
+    # Add ingestion timestamp
+    df["ingestion_time"] = pd.Timestamp.now()
     
-    # Validate against output schema (after adding ingestion_time)
-    validate_schema(df, schema_path=schema_path)
+    # Validate against output schema
+    try:
+        validate_schema(df, schema_path)
+        logger.info("Output schema validation passed")
+    except Exception as e:
+        logger.error(f"Output schema validation failed: {e}")
+        raise
     
-    # Define explicit output column order
-    columns = [
-        "case_id",
-        "predicted_label",
-        "subtype_label",
-        "confidence",
-        "model_version",
-        "embedding_model",
-        "inference_timestamp",
-        "prediction_notes",
-        "ingestion_time"
-    ]
+    # Ensure all required columns exist
+    required_columns = ["case_id", "predicted_label", "confidence", "ingestion_time"]
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    if missing_columns:
+        raise ValueError(f"Missing required columns: {missing_columns}")
     
-    df = pd.DataFrame(df[columns])  # type: ignore
+    # Select only the columns we want to output
+    output_df = df[required_columns].copy()
     
     logger.info(f"Formatted prediction output with {len(df)} rows. Ready for persistence.")
-    return df
+    return output_df
