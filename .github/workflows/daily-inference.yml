@@ -72,6 +72,23 @@ jobs:
             echo "log_tail=No log file found" >> $GITHUB_OUTPUT
           fi
 
+      - name: Debug email secrets
+        if: failure()
+        run: |
+          echo "Checking if EMAIL_USERNAME is set..."
+          if [ -n "${{ secrets.EMAIL_USERNAME }}" ]; then
+            echo "✅ EMAIL_USERNAME is set (length: ${#EMAIL_USERNAME})"
+          else
+            echo "❌ EMAIL_USERNAME is not set"
+          fi
+          
+          echo "Checking if EMAIL_PASSWORD is set..."
+          if [ -n "${{ secrets.EMAIL_PASSWORD }}" ]; then
+            echo "✅ EMAIL_PASSWORD is set (length: ${#EMAIL_PASSWORD})"
+          else
+            echo "❌ EMAIL_PASSWORD is not set"
+          fi
+
       - name: Send failure notification email
         if: failure()
         uses: dawidd6/action-send-mail@v3
@@ -96,6 +113,23 @@ jobs:
             Error log (last 50 lines):
             
             ${{ steps.get_log_tail.outputs.log_tail }}
+
+      - name: Debug email secrets (success)
+        if: success()
+        run: |
+          echo "Checking if EMAIL_USERNAME is set..."
+          if [ -n "${{ secrets.EMAIL_USERNAME }}" ]; then
+            echo "✅ EMAIL_USERNAME is set (length: ${#EMAIL_USERNAME})"
+          else
+            echo "❌ EMAIL_USERNAME is not set"
+          fi
+          
+          echo "Checking if EMAIL_PASSWORD is set..."
+          if [ -n "${{ secrets.EMAIL_PASSWORD }}" ]; then
+            echo "✅ EMAIL_PASSWORD is set (length: ${#EMAIL_PASSWORD})"
+          else
+            echo "❌ EMAIL_PASSWORD is not set"
+          fi
 
       - name: Send success notification email
         if: success()
