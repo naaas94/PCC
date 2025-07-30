@@ -1,38 +1,15 @@
-# config.yaml — pipeline configuration for PCC
-
 bq:
-  # Input snapshot (daily partitioned)
-  source_table: your-project.your-dataset.source_table
-  
-  # Embedding table (precomputed embeddings)
   embedding_table: your-project.your-dataset.embedding_table
-
-  # Output table destination (MVP-ready)
-  output_table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
-  
-  # Monitoring table for logging pipeline runs
   monitoring_table: ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
-  
+  output_table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+  source_table: not implemented
 models:
-  # Local paths to model artifacts (dynamically updated by ingestion script)
   classifier_path: src/models/model.joblib
-
-  # Embedding model used to generate vectors in snapshot
+  classifier_type: LogisticRegression
   embedding_model: all-MiniLM-L6-v2
-  
-  # Model version (updated by ingestion script)
-  model_version: v0.1.1
-  
-  # Additional model info (populated from metadata.json)
-  trained_on: ""
-  classifier_type: "LogisticRegression"
-
+  model_version: v20250729_120642
+  trained_on: ''
 runtime:
-  # Runtime mode: dev | prod | dry_run (used for CLI behavior and Flyte switching)
-  mode: dev
-
-  # Prevent writing to BigQuery if true (used during development/testing)
   dry_run: false
-
-  # Date partition to process — format: YYYYMMDD (used for snapshot resolution)
+  mode: dev
   partition_date: 20250101
