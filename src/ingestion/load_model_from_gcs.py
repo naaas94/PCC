@@ -154,13 +154,14 @@ def update_config_with_model_info(
             config = yaml.safe_load(f)
         
         # Load model metadata
-        metadata_path = "src/models/metadata.yaml"
+        metadata_path = "src/models/metadata.json"
         if os.path.exists(metadata_path):
+            import json
             with open(metadata_path, "r") as f:
-                metadata = yaml.safe_load(f)
+                metadata = json.load(f)
             
             # Update config with model info
-            config['models']['model_version'] = metadata.get('version', 'unknown')
+            config['models']['model_version'] = metadata.get('model_version', 'unknown')
             config['models']['embedding_model'] = metadata.get(
                 'embedding_model', 'all-MiniLM-L6-v2'
             )

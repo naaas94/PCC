@@ -553,3 +553,152 @@ Job ID: 4ea43775-1ed8-41e5-ba36-bd83354f7a4c
 2025-07-30 10:29:31 — pcc_pipeline — INFO — Output schema validation passed
 2025-07-30 10:29:31 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
 2025-07-30 10:29:31 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 10:59:08 — pcc_pipeline — INFO — ============================================================
+2025-07-30 10:59:08 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 10:59:08 — pcc_pipeline — INFO — ============================================================
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Date: 2025-07-30 10:59:08
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Mode: prod
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Using sample data
+2025-07-30 10:59:08 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 10:59:09 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:59:10 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 10:59:12 — pcc_pipeline — INFO — No model found for today: 20250730
+2025-07-30 10:59:15 — pcc_pipeline — INFO — Found 1 model folders. Latest: pcc-models
+2025-07-30 10:59:15 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 10:59:19 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:19 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:20 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:20 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:21 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:21 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:22 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:22 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:23 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:23 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:24 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:24 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Model loaded successfully for verification
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Successfully downloaded 12 files
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Config updated with model metadata
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Successfully ingested latest model: pcc-models
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Model cache cleared, will reload on next prediction
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Model ingestion completed successfully
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 10:59:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 10:59:25 — pcc_pipeline — INFO — Embedding validation complete: 0 valid, 100 dropped
+2025-07-30 10:59:25 — pcc_pipeline — ERROR — Daily pipeline run failed: 'predicted_label'
+2025-07-30 10:59:25 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 10:59:25 — pcc_pipeline — ERROR — DAILY PIPELINE RUN FAILED
+2025-07-30 10:59:25 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 10:59:40 — pcc_pipeline — INFO — ============================================================
+2025-07-30 10:59:40 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 10:59:40 — pcc_pipeline — INFO — ============================================================
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Date: 2025-07-30 10:59:40
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Mode: prod
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Using sample data
+2025-07-30 10:59:40 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 10:59:41 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:59:42 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 10:59:44 — pcc_pipeline — INFO — No model found for today: 20250730
+2025-07-30 10:59:48 — pcc_pipeline — INFO — Found 1 model folders. Latest: pcc-models
+2025-07-30 10:59:48 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 10:59:51 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:52 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:52 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:53 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:53 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:54 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:54 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:55 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:55 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:56 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:56 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/metadata.json -> src/models\metadata.json
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/model.joblib -> src/models\model.joblib
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Model loaded successfully for verification
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Successfully downloaded 12 files
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Config updated with model metadata
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Successfully ingested latest model: pcc-models
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Model cache cleared, will reload on next prediction
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Model ingestion completed successfully
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 10:59:57 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 10:59:57 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 10:59:57 — pcc_pipeline — INFO — Loaded model metadata
+2025-07-30 10:59:57 — pcc_pipeline — ERROR — Daily pipeline run failed: X has 588 features, but LogisticRegression is expecting 584 features as input.
+2025-07-30 10:59:57 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 10:59:57 — pcc_pipeline — ERROR — DAILY PIPELINE RUN FAILED
+2025-07-30 10:59:57 — pcc_pipeline — ERROR — ============================================================
+2025-07-30 11:01:06 — pcc_pipeline — INFO — ============================================================
+2025-07-30 11:01:06 — pcc_pipeline — INFO — STARTING DAILY PCC PIPELINE RUN
+2025-07-30 11:01:06 — pcc_pipeline — INFO — ============================================================
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Date: 2025-07-30 11:01:06
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Mode: prod
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Force Latest Model: False
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Use Sample Data: True
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Using sample data
+2025-07-30 11:01:06 — pcc_pipeline — INFO — Step 1: Checking for new models...
+2025-07-30 11:01:06 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 11:01:07 — pcc_pipeline — INFO — Starting model ingestion from GCS
+2025-07-30 11:01:10 — pcc_pipeline — INFO — No model found for today: 20250730
+2025-07-30 11:01:13 — pcc_pipeline — INFO — Found 1 model folders. Latest: pcc-models
+2025-07-30 11:01:13 — pcc_pipeline — INFO — No model for today found, getting latest available model
+2025-07-30 11:01:17 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:17 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:18 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:18 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092253/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:19 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:19 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092445/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:20 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:20 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_115938/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:21 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:21 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120315/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:22 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/metadata.json -> src/models\metadata.json
+2025-07-30 11:01:22 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_120642/model.joblib -> src/models\model.joblib
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Model loaded successfully for verification
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Successfully downloaded 12 files
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Config updated with model metadata
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Successfully ingested latest model: pcc-models
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Model cache cleared, will reload on next prediction
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Model ingestion completed successfully
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Step 2: Running inference pipeline...
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Model ingestion skipped by user request
+2025-07-30 11:01:23 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Configuration loaded
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-07-30 11:01:23 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Loaded model metadata
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Output schema validation passed
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-07-30 11:01:23 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 11:01:24 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 11:01:24 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-07-30 11:01:36 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-07-30 11:01:38 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
+2025-07-30 11:01:39 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-07-30 11:01:39 — pcc_pipeline — INFO — Step 3: Logging results...
+2025-07-30 11:01:39 — pcc_pipeline — INFO — Pipeline completed successfully
+2025-07-30 11:01:39 — pcc_pipeline — INFO —    Processed 100 cases
+2025-07-30 11:01:39 — pcc_pipeline — INFO —    Model version: v20250729_120642
+2025-07-30 11:01:39 — pcc_pipeline — INFO —    Prediction distribution:
+2025-07-30 11:01:39 — pcc_pipeline — INFO —      opt_out: 34 (34.0%)
+2025-07-30 11:01:39 — pcc_pipeline — INFO —      data_deletion: 32 (32.0%)
+2025-07-30 11:01:39 — pcc_pipeline — INFO —      other: 19 (19.0%)
+2025-07-30 11:01:39 — pcc_pipeline — INFO —      privacy_request: 15 (15.0%)
+2025-07-30 11:01:39 — pcc_pipeline — INFO — ============================================================
+2025-07-30 11:01:39 — pcc_pipeline — INFO — DAILY PIPELINE RUN COMPLETED SUCCESSFULLY
+2025-07-30 11:01:39 — pcc_pipeline — INFO — ============================================================

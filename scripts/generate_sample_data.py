@@ -12,7 +12,7 @@ import json
 import os
 from datetime import datetime
 
-def generate_sample_embeddings(n_samples=100, embedding_dim=384):
+def generate_sample_embeddings(n_samples=100, embedding_dim=584):
     """Generate synthetic embeddings"""
     np.random.seed(42)  # For reproducibility
     return np.random.randn(n_samples, embedding_dim)
@@ -76,7 +76,7 @@ def save_sample_data():
         "trained_on": datetime.now().isoformat(),
         "embedding_model": "all-MiniLM-L6-v2",
         "label_mapping": {"NOT_PC": 0, "PC": 1},
-        "train_shape": [len(df), 384],
+        "train_shape": [len(df), 584],
         "classifier": "LogisticRegression",
         "config": {
             "solver": "liblinear",
@@ -94,7 +94,7 @@ def save_sample_data():
     print(f"\n📊 Summary:")
     print(f"   - Generated {len(df)} sample cases")
     print(f"   - Model trained with {len(set(labels))} classes")
-    print(f"   - Embedding dimension: 384")
+    print(f"   - Embedding dimension: 584")
     print(f"   - Files created in tests/fixtures/ and src/models/")
 
 if __name__ == "__main__":
