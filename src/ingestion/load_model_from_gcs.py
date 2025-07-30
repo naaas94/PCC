@@ -42,8 +42,11 @@ def get_latest_model_folder(
     model_folders.sort(reverse=True)
     latest_folder = model_folders[0]
     
-    logger.info(f"Found {len(model_folders)} model folders. Latest: {latest_folder}")
-    return latest_folder
+    # Extract just the folder name from the full path
+    folder_name = os.path.basename(latest_folder)
+    
+    logger.info(f"Found {len(model_folders)} model folders. Latest: {folder_name}")
+    return folder_name
 
 
 def check_today_model_exists(
@@ -57,19 +60,33 @@ def check_today_model_exists(
     from datetime import date
     
     today = date.today()
-    today_folder = f"{folder_prefix}/v{today.strftime('%Y%m%d')}"
+    today_date_str = today.strftime('%Y%m%d')
     
     client = storage.Client()
     bucket = client.bucket(bucket_name)
     
-    # Check if today's folder exists
-    blobs = list(bucket.list_blobs(prefix=today_folder))
+    # List all blobs with the prefix and find today's folders
+    blobs = bucket.list_blobs(prefix=folder_prefix)
+    today_folders = []
     
-    if blobs:
-        logger.info(f"Found model for today: {today_folder}")
-        return today_folder
+    for blob in blobs:
+        if blob.name.endswith('/'):
+            folder_name = blob.name.rstrip('/')
+            if folder_name.startswith(folder_prefix):
+                # Check if this folder contains today's date
+                if f"v{today_date_str}" in folder_name:
+                    today_folders.append(folder_name)
+    
+    if today_folders:
+        # Sort by folder name to get the latest one
+        today_folders.sort(reverse=True)
+        latest_today_folder = today_folders[0]
+        # Extract just the folder name from the full path
+        folder_name = os.path.basename(latest_today_folder)
+        logger.info(f"Found model for today: {folder_name}")
+        return folder_name
     else:
-        logger.info(f"No model found for today: {today_folder}")
+        logger.info(f"No model found for today: {today_date_str}")
         return None
 
 

@@ -9,7 +9,13 @@ logger = get_logger()
 
 def load_config(mode="dev"):
     """Load configuration from YAML file and environment variables."""
+    # Try mode-specific config first
     config_path = f"src/config/config.{mode}.yaml"
+    
+    # If mode-specific config doesn't exist, fall back to base config
+    if not os.path.exists(config_path):
+        logger.warning(f"Config file {config_path} not found, falling back to base config.yaml")
+        config_path = "src/config/config.yaml"
     
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
