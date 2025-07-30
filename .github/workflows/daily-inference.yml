@@ -114,42 +114,4 @@ jobs:
             
             ${{ steps.get_log_tail.outputs.log_tail }}
 
-      - name: Debug email secrets (success)
-        if: success()
-        run: |
-          echo "Checking if EMAIL_USERNAME is set..."
-          if [ -n "${{ secrets.EMAIL_USERNAME }}" ]; then
-            echo "✅ EMAIL_USERNAME is set (length: ${#EMAIL_USERNAME})"
-          else
-            echo "❌ EMAIL_USERNAME is not set"
-          fi
-          
-          echo "Checking if EMAIL_PASSWORD is set..."
-          if [ -n "${{ secrets.EMAIL_PASSWORD }}" ]; then
-            echo "✅ EMAIL_PASSWORD is set (length: ${#EMAIL_PASSWORD})"
-          else
-            echo "❌ EMAIL_PASSWORD is not set"
-          fi
-
-      - name: Send success notification email
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          secure: true
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "[SUCCESS] PCC Daily Inference Pipeline Completed"
-          to: alejandroa.garay.ag@gmail.com
-          from: ${{ secrets.EMAIL_USERNAME }}
-          body: |
-            The PCC daily inference pipeline completed successfully.
-
-            Date: ${{ github.event.head_commit.timestamp || github.run_id }}
-            Commit: ${{ github.sha }}
-            Workflow: ${{ github.workflow }}
-            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Model Updated: ${{ steps.model_check.outputs.model_updated || 'N/A' }}
-
-            Pipeline completed successfully! 
+ 
