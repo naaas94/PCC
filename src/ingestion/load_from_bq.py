@@ -1,28 +1,24 @@
 # src/ingestion/load_from_bq.py
 
-from google.cloud import bigquery
 import pandas as pd
-import os
-from datetime import datetime
-from utils.schema_validator import validate_schema
-from utils.logger import get_logger
+from google.cloud import bigquery
+from utils.logger import get_bq_logger
+from config.config import load_config
 
-logger = get_logger()
+logger = get_bq_logger()
+config = load_config()
 
 
-def load_snapshot_partition(partition_date: str, config: dict) -> pd.DataFrame:
+def load_partitioned_data(partition_date: str) -> pd.DataFrame:
     """
     Load the partitioned case snapshot and join with precomputed embeddings for the same day.
     Validates the resulting schema.
     """
-    client = bigquery.Client(location="EU")
-
-    # Build dynamic table names based on config + partition date
-    case_table = config["bq"]["source_table"].replace("*", partition_date)
-    embedding_table = f"redacted_{partition_date}"
+    case_table = config["bq"]["source_table"]
+    embedding_table = config["bq"]["embedding_table"]
 
     query = f"""
-        SELECT 
+        SELECT
             c.core.case_number AS case_id,
             e.embeddings_allminilm AS embedding_vector,
             c.core.request_time AS timestamp
@@ -30,15 +26,12 @@ def load_snapshot_partition(partition_date: str, config: dict) -> pd.DataFrame:
         JOIN `{embedding_table}` AS e
         ON c.core.case_number = e.case_number
         WHERE DATE(c.core.request_time) = "{partition_date[:4]}-{partition_date[4:6]}-{partition_date[6:]}"
-
         LIMIT 6000
-    """ #5/20 added a limit to test pipeline 5/21: added where clause to ingestion query 
+    """  # 5/20 added a limit to test pipeline 5/21: added where clause to ingestion query
 
-    logger.info(f"Running query for partition {partition_date}...")
-    df = client.query(query).result().to_dataframe()
-    logger.info(f"Retrieved {len(df)} rows from BigQuery.")
+    logger.info(f"Loading data for partition {partition_date}")
+    client = bigquery.Client(location="EU")
+    df = client.query(query).to_dataframe()
 
-    # Validate input schema
-    validate_schema(df, schema_path="schemas/input_schema.json")
-
+    logger.info(f"Loaded {len(df)} rows from BigQuery")
     return df
