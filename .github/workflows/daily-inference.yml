@@ -59,59 +59,61 @@ jobs:
           echo "🚀 Starting inference pipeline..."
           python scripts/run_pipeline.py --skip-ingestion 2>&1 | tee pipeline_output.log
 
-      # - name: Send failure notification email
-      #   if: failure()
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: smtp.gmail.com
-      #     server_port: 587
-      #     username: ${{ secrets.EMAIL_USERNAME }}
-      #     password: ${{ secrets.EMAIL_PASSWORD }}
-      #     subject: "[ALERT] PCC Daily Inference Pipeline Failed"
-      #     to: alejandroa.garay.ag@gmail.com
-      #     from: ${{ secrets.EMAIL_USERNAME }}
-      #     body: |
-      #       The PCC daily inference pipeline failed.
+      - name: Get last 50 lines of log for email
+        if: always()
+        id: get_log_tail
+        run: |
+          if [ -f pipeline_output.log ]; then
+            tail -n 50 pipeline_output.log > log_tail.txt
+            echo "log_tail<<EOF" >> $GITHUB_OUTPUT
+            cat log_tail.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "log_tail=No log file found" >> $GITHUB_OUTPUT
+          fi
 
-      #       Date: ${{ github.event.head_commit.timestamp }}
-      #       Commit: ${{ github.sha }}
-      #       Workflow: ${{ github.workflow }}
-      #       Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      #       Model Updated: ${{ steps.model_check.outputs.model_updated }}
+      - name: Send failure notification email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "[ALERT] PCC Daily Inference Pipeline Failed"
+          to: alejandroa.garay.ag@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            The PCC daily inference pipeline failed.
 
-      #       Error log (last 50 lines):
+            Date: ${{ github.event.head_commit.timestamp || 'N/A' }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated }}
+
+            Error log (last 50 lines):
             
-      #       ${{ steps.run_pipeline.outputs.log_tail }}
-      #   env:
-      #     LOG_FILE: pipeline_output.log
+            ${{ steps.get_log_tail.outputs.log_tail }}
 
-      # - name: Get last 50 lines of log for email
-      #   if: failure()
-      #   id: get_log_tail
-      #   run: |
-      #     tail -n 50 pipeline_output.log > log_tail.txt
-      #     echo "log_tail<<EOF" >> $GITHUB_OUTPUT
-      #     cat log_tail.txt >> $GITHUB_OUTPUT
-      #     echo "EOF" >> $GITHUB_OUTPUT
+      - name: Send success notification email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "[SUCCESS] PCC Daily Inference Pipeline Completed"
+          to: alejandroa.garay.ag@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            The PCC daily inference pipeline completed successfully.
 
-      # - name: Send success notification email
-      #   if: success()
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: smtp.gmail.com
-      #     server_port: 587
-      #     username: ${{ secrets.EMAIL_USERNAME }}
-      #     password: ${{ secrets.EMAIL_PASSWORD }}
-      #     subject: "[SUCCESS] PCC Daily Inference Pipeline Completed"
-      #     to: alejandroa.garay.ag@gmail.com
-      #     from: ${{ secrets.EMAIL_USERNAME }}
-      #     body: |
-      #       The PCC daily inference pipeline completed successfully.
+            Date: ${{ github.event.head_commit.timestamp || 'N/A' }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Model Updated: ${{ steps.model_check.outputs.model_updated }}
 
-      #       Date: ${{ github.event.head_commit.timestamp }}
-      #       Commit: ${{ github.sha }}
-      #       Workflow: ${{ github.workflow }}
-      #       Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      #       Model Updated: ${{ steps.model_check.outputs.model_updated }}
-
-      #       Pipeline completed successfully! 
+            Pipeline completed successfully! 
