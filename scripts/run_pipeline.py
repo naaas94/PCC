@@ -185,8 +185,8 @@ def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev", force_lat
         logger.warning("Model ingestion failed, continuing with existing model")
 
     # Ingestion
-    from ingestion.load_from_bq import load_snapshot_partition
-    df_raw = load_snapshot_partition(partition_date, config)
+    from ingestion.load_from_bq import load_partitioned_data
+    df_raw = load_partitioned_data(partition_date)
     validate_schema(df_raw, schema_path="schemas/input_schema.json")
     logger.info(f"Loaded {len(df_raw)} rows from BigQuery snapshot")
 

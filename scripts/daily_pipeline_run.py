@@ -72,6 +72,14 @@ def run_daily_pipeline(partition_date: str = None, mode: str = "prod", force_lat
             logger.info("Model ingestion completed successfully")
         else:
             logger.warning("Model ingestion failed, continuing with existing model")
+            # Check if we have an existing model to fall back to
+            try:
+                from inference.classifier_interface import reload_model
+                reload_model()  # This will raise an exception if no model exists
+                logger.info("Using existing model from previous ingestion")
+            except Exception as e:
+                logger.error(f"No existing model found and model ingestion failed: {e}")
+                raise RuntimeError("Cannot proceed without a valid model")
         
         # Step 2: Run Pipeline
         logger.info("Step 2: Running inference pipeline...")

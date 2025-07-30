@@ -1,10 +1,15 @@
 # src/ingestion/load_model_from_gcs.py
 
 import os
+import sys
 import joblib
 import yaml
 from google.cloud import storage
 from typing import Optional, Tuple
+
+# Add src to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from utils.logger import get_logger
 from config.config import load_config
 
@@ -189,30 +194,39 @@ def ingest_latest_model(force_latest: bool = False) -> bool:
     Returns:
         True if successful, False otherwise.
     """
-    if not force_latest:
-        # Try to get today's model first
-        today_folder = check_today_model_exists()
-        if today_folder:
-            success, local_path = download_model_from_gcs(today_folder)
-            if success:
-                update_config_with_model_info(today_folder)
-                return True
-    
-    # Get the latest model
-    latest_folder = get_latest_model_folder()
-    if not latest_folder:
-        logger.error("No model folders found in GCS")
-        return False
-    
-    if not force_latest:
-        logger.info("No model for today found, getting latest available model")
-    
-    success, local_path = download_model_from_gcs(latest_folder)
-    if success:
-        update_config_with_model_info(latest_folder)
-        return True
-    else:
-        logger.error("Failed to download model from GCS")
+    try:
+        logger.info("Starting model ingestion from GCS")
+        
+        if not force_latest:
+            # Try to get today's model first
+            today_folder = check_today_model_exists()
+            if today_folder:
+                success, local_path = download_model_from_gcs(today_folder)
+                if success:
+                    update_config_with_model_info(today_folder)
+                    logger.info(f"Successfully ingested today's model: {today_folder}")
+                    return True
+        
+        # Get the latest model
+        latest_folder = get_latest_model_folder()
+        if not latest_folder:
+            logger.error("No model folders found in GCS")
+            return False
+        
+        if not force_latest:
+            logger.info("No model for today found, getting latest available model")
+        
+        success, local_path = download_model_from_gcs(latest_folder)
+        if success:
+            update_config_with_model_info(latest_folder)
+            logger.info(f"Successfully ingested latest model: {latest_folder}")
+            return True
+        else:
+            logger.error("Failed to download model from GCS")
+            return False
+            
+    except Exception as e:
+        logger.error(f"Error during model ingestion: {str(e)}")
         return False
 
 
