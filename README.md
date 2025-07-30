@@ -18,9 +18,9 @@ This project was originally created by Alejandro Garay as a privacy case classif
 
 PCC is a production-ready implementation of a text classification system designed to process inbound customer support messages and identify privacy-related intents under GDPR and CCPA regulations. The system uses precomputed sentence embeddings and a modular inference pipeline to classify messages as privacy cases (PC) or non-privacy cases (NOT_PC).
 
-**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring.
+**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **NEW:** Automatic model ingestion from GCS with dynamic model loading and version management.
 
-**How it works:** Daily customer support data is ingested from BigQuery, preprocessed using MiniLM embeddings, classified through a swappable inference module, and output with full metadata and confidence scores to BigQuery tables with monitoring logs.
+**How it works:** Daily customer support data is ingested from BigQuery, preprocessed using MiniLM embeddings, classified through a swappable inference module with automatic model updates from GCS, and output with full metadata and confidence scores to BigQuery tables with monitoring logs.
 
 ---
 
@@ -81,6 +81,12 @@ The system is designed for:
 * Local CLI mode for development and debugging
 * Dockerized for consistent environments
 * Production-ready error handling and monitoring
+
+**Model Management**
+* Automatic ingestion from GCS bucket `pcc-datasets/pcc-models`
+* Dynamic model loading with version tracking
+* Support for today's model priority or latest model fallback
+* Seamless integration with existing pipeline
 
 ---
 
@@ -144,6 +150,21 @@ Create the required BigQuery tables:
 ```bash
 # Execute the table creation script in BigQuery
 bq query --use_legacy_sql=false < scripts/create_bigquery_tables.sql
+```
+
+### Model Ingestion
+
+The system automatically ingests models from GCS. You can ingest models manually or as part of pipeline execution:
+
+```bash
+# Ingest latest model from GCS
+make ingest-model
+
+# Ingest today's model (if available)
+make ingest-today
+
+# Ingest and run pipeline in one command
+make ingest-and-run
 ```
 
 ### Running the Pipeline
