@@ -5,7 +5,7 @@
 **Stack:** BigQuery • MiniLM • Scikit-learn • Pandas • Pydantic • Docker • Google Cloud Storage  
 **Use Case:** Classification of customer support messages into privacy-related intent categories using precomputed sentence embeddings and a swappable inference module with automatic model ingestion from GCS.  
 **Status:** Production-ready with full BigQuery orchestration and dynamic model management.
-
+> Live Looker Dashboard: [View real-time pipeline monitoring and inference results](https://lookerstudio.google.com/reporting/9cb78e63-f5a4-4c5b-95b2-3056171628a6/page/SuJRF) — data from the endpoints (EPs) is displayed and monitored here daily.
 ---
 
 ## Attribution
