@@ -18,7 +18,11 @@ This project was originally created by Alejandro Garay as a privacy case classif
 
 PCC is a production-ready implementation of a text classification system designed to process inbound customer support messages and identify privacy-related intents under GDPR and CCPA regulations. The system uses precomputed sentence embeddings and a modular inference pipeline to classify messages as privacy cases (PC) or non-privacy cases (NOT_PC).
 
-**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
+**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **LIVE:** Two production BigQuery tables running daily real-time inferences with synthetic data, plus a Looker dashboard for monitoring pipeline performance. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
+
+->
+
+**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **LIVE:** Two production BigQuery tables running daily real-time inferences with synthetic data, plus a Looker dashboard for monitoring pipeline performance. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
 
 **How it works:** Daily customer support data is ingested from BigQuery, preprocessed using combined MiniLM and TF-IDF embeddings (584 dimensions), classified through a swappable inference module with automatic model updates from GCS, and output with full metadata and confidence scores to BigQuery tables with monitoring logs.
 
@@ -214,19 +218,30 @@ make run-bq-with-model PARTITION=20250101
 
 ## CONFIGURATION
 
-### BigQuery Tables
+### Live BigQuery Tables
 
-The system uses the following BigQuery tables:
+The system maintains two production BigQuery tables running daily real-time inferences with synthetic data:
 
-- **Output Table**: `ales-sandbox-465911.PCC_EPs.pcc_inference_output`
-  - Stores inference results with 7-day retention
+- **Inference Output Table**: `ales-sandbox-465911.PCC_EPs.pcc_inference_output`
+  - Stores daily inference results with 7-day retention
   - Partitioned by ingestion date
   - Contains case_id, predictions, confidence scores, and metadata
+  - **Status**: Live daily pipeline with synthetic data
 
-- **Monitoring Table**: `ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs`
-  - Tracks pipeline execution metrics
+- **Monitoring Logs Table**: `ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs`
+  - Tracks pipeline execution metrics and run logs
   - Stores run_id, performance metrics, and error information
   - Partitioned by ingestion date with 7-day retention
+  - **Status**: Live daily monitoring with comprehensive logging
+
+### Looker Dashboard
+
+A production Looker dashboard is available for monitoring daily pipeline runs and performance metrics:
+- **Dashboard**: [PCC Pipeline Monitoring](https://lookerstudio.google.com/reporting/9cb78e63-f5a4-4c5b-95b2-3056171628a6/page/SuJRF)
+- **Purpose**: Real-time visualization of pipeline performance, inference results, and monitoring metrics
+- **Access**: Internal dashboard for pipeline oversight and performance tracking
+
+*Note: BigQuery tables are not public to manage billing and quota usage carefully.*
 
 ### Environment Variables
 
@@ -322,6 +337,8 @@ pytest tests/ --cov=src --cov-report=html
 
 ### ✅ Completed Features
 
+- **Live Production System**: Two BigQuery tables running daily real-time inferences with synthetic data
+- **Looker Dashboard**: Production monitoring dashboard for pipeline oversight and performance tracking
 - **Full BigQuery Integration**: Successful writes to output and monitoring tables
 - **Production Error Handling**: Retry logic with exponential backoff
 - **Comprehensive Monitoring**: Pipeline execution tracking and metrics
