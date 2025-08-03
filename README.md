@@ -20,10 +20,6 @@ PCC is a production-ready implementation of a text classification system designe
 
 **Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **LIVE:** Two production BigQuery tables running daily real-time inferences with synthetic data, plus a Looker dashboard for monitoring pipeline performance. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
 
-->
-
-**Current Status:** Fully orchestrated system with BigQuery integration, monitoring, and production-ready error handling. The pipeline processes data with 95%+ confidence scores, validates against strict input/output schemas, and writes results to BigQuery tables with comprehensive monitoring. **LIVE:** Two production BigQuery tables running daily real-time inferences with synthetic data, plus a Looker dashboard for monitoring pipeline performance. **NEW:** Automatic model ingestion from GCS with dynamic model loading, version management, and seamless integration with the existing pipeline.
-
 **How it works:** Daily customer support data is ingested from BigQuery, preprocessed using combined MiniLM and TF-IDF embeddings (584 dimensions), classified through a swappable inference module with automatic model updates from GCS, and output with full metadata and confidence scores to BigQuery tables with monitoring logs.
 
 ---
