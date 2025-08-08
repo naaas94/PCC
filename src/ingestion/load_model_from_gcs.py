@@ -28,30 +28,36 @@ def get_latest_model_folder(
     client = storage.Client()
     bucket = client.bucket(bucket_name)
     
-    # List all blobs with the prefix
+    # List all blobs with the prefix to find model files
     blobs = bucket.list_blobs(prefix=folder_prefix)
     
-    # Extract folder names and sort by date
-    model_folders = []
+    # Extract subfolder names from file paths
+    model_folders = set()
     for blob in blobs:
-        if blob.name.endswith('/'):
-            folder_name = blob.name.rstrip('/')
-            if folder_name.startswith(folder_prefix):
-                model_folders.append(folder_name)
+        # Skip the main folder marker
+        if blob.name == f"{folder_prefix}/":
+            continue
+            
+        # Extract the subfolder name from the file path
+        # e.g., "pcc-models/v20250730_112340/model.joblib" -> "v20250730_112340"
+        path_parts = blob.name.split('/')
+        if len(path_parts) >= 3 and path_parts[0] == folder_prefix:
+            subfolder = path_parts[1]
+            if subfolder.startswith('v'):  # Only include version folders
+                model_folders.add(subfolder)
     
     if not model_folders:
         logger.warning("No model folders found in GCS")
         return None
     
     # Sort by folder name (assuming vYYYYMMDD_timestamp format)
-    model_folders.sort(reverse=True)
+    model_folders = sorted(model_folders, reverse=True)
     latest_folder = model_folders[0]
     
-    # Extract just the folder name from the full path
-    folder_name = os.path.basename(latest_folder)
-    
-    logger.info(f"Found {len(model_folders)} model folders. Latest: {folder_name}")
-    return folder_name
+    # Return the full path to the latest folder
+    full_path = f"{folder_prefix}/{latest_folder}"
+    logger.info(f"Found {len(model_folders)} model folders. Latest: {full_path}")
+    return full_path
 
 
 def check_today_model_exists(
@@ -72,24 +78,28 @@ def check_today_model_exists(
     
     # List all blobs with the prefix and find today's folders
     blobs = bucket.list_blobs(prefix=folder_prefix)
-    today_folders = []
+    today_folders = set()
     
     for blob in blobs:
-        if blob.name.endswith('/'):
-            folder_name = blob.name.rstrip('/')
-            if folder_name.startswith(folder_prefix):
-                # Check if this folder contains today's date
-                if f"v{today_date_str}" in folder_name:
-                    today_folders.append(folder_name)
+        # Skip the main folder marker
+        if blob.name == f"{folder_prefix}/":
+            continue
+            
+        # Extract the subfolder name from the file path
+        path_parts = blob.name.split('/')
+        if len(path_parts) >= 3 and path_parts[0] == folder_prefix:
+            subfolder = path_parts[1]
+            # Check if this subfolder contains today's date
+            if f"v{today_date_str}" in subfolder:
+                today_folders.add(subfolder)
     
     if today_folders:
         # Sort by folder name to get the latest one
-        today_folders.sort(reverse=True)
+        today_folders = sorted(today_folders, reverse=True)
         latest_today_folder = today_folders[0]
-        # Extract just the folder name from the full path
-        folder_name = os.path.basename(latest_today_folder)
-        logger.info(f"Found model for today: {folder_name}")
-        return folder_name
+        full_path = f"{folder_prefix}/{latest_today_folder}"
+        logger.info(f"Found model for today: {full_path}")
+        return full_path
     else:
         logger.info(f"No model found for today: {today_date_str}")
         return None
@@ -111,16 +121,20 @@ def download_model_from_gcs(
     # Create local directory if it doesn't exist
     os.makedirs(local_models_dir, exist_ok=True)
     
-    # Download all files in the folder
-    blobs = bucket.list_blobs(prefix=folder_name)
+    # Download all files in the specific folder only
+    # Use exact folder prefix to avoid downloading from other folders
+    exact_folder_prefix = f"{folder_name}/"
+    blobs = bucket.list_blobs(prefix=exact_folder_prefix)
     downloaded_files = []
     
     for blob in blobs:
         if not blob.name.endswith('/'):  # Skip folder markers
-            local_path = os.path.join(local_models_dir, os.path.basename(blob.name))
-            blob.download_to_filename(local_path)
-            downloaded_files.append(local_path)
-            logger.info(f"Downloaded: {blob.name} -> {local_path}")
+            # Only download files that are directly in the requested folder
+            if blob.name.startswith(exact_folder_prefix):
+                local_path = os.path.join(local_models_dir, os.path.basename(blob.name))
+                blob.download_to_filename(local_path)
+                downloaded_files.append(local_path)
+                logger.info(f"Downloaded: {blob.name} -> {local_path}")
     
     if not downloaded_files:
         logger.error("No files downloaded from GCS")

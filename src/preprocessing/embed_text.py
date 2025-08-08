@@ -6,9 +6,45 @@ from utils.logger import get_logger
 logger = get_logger()
 
 
+def truncate_embeddings_to_model_dimensions(
+    df: pd.DataFrame, 
+    target_dim: int = 584,  # Model expects 584 features
+    debug: bool = False
+) -> pd.DataFrame:
+    """
+    Truncate embeddings to match the model's expected dimensions.
+    This is a quick fix for the feature mismatch issue.
+    """
+    import numpy as np
+    
+    logger.info(f"Truncating embeddings from {len(df)} rows to {target_dim} dimensions")
+    
+    truncated_rows = []
+    for idx, row in df.iterrows():
+        vec = row.get("embedding_vector")
+        if not isinstance(vec, (list, np.ndarray)):
+            if debug:
+                logger.warning(f"Row {idx}: Invalid embedding type {type(vec)}")
+            continue
+            
+        vec = np.asarray(vec)
+        if len(vec) >= target_dim:
+            # Truncate to target dimension
+            truncated_vec = vec[:target_dim]
+            row_copy = row.copy()
+            row_copy['embedding_vector'] = truncated_vec
+            truncated_rows.append(row_copy)
+        else:
+            if debug:
+                logger.warning(f"Row {idx}: Embedding too short ({len(vec)} < {target_dim})")
+    
+    logger.info(f"Truncated {len(truncated_rows)} embeddings to {target_dim} dimensions")
+    return pd.DataFrame(truncated_rows)
+
+
 def validate_embeddings(
     df: pd.DataFrame, 
-    expected_dim: int = 584,  # Combined MiniLM + TF-IDF embeddings
+    expected_dim: int = 588,  # Combined MiniLM + TF-IDF embeddings (updated to match current BigQuery output)
     debug: bool = False
 ) -> pd.DataFrame:
     import numpy as np
