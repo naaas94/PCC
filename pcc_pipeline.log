@@ -1045,3 +1045,103 @@ Job ID: 4ea43775-1ed8-41e5-ba36-bd83354f7a4c
 2025-08-08 10:00:36 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
 2025-08-08 10:00:39 — pcc_pipeline — INFO — Schema validated successfully against schemas/inference_log_schema.json
 2025-08-08 10:00:39 — pcc_pipeline — INFO — Pipeline run logged to monitoring system successfully
+2025-08-08 10:06:01 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:01 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-08-08 10:06:01 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:01 — pcc_pipeline — INFO — No model found for today: 20250808
+2025-08-08 10:06:01 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:01 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:01 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:01 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-08-08 10:06:01 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:01 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:31 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:31 — pcc_pipeline — INFO — No model found for today: 20250808
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmplogjtsu1\models\model.joblib
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmplogjtsu1\models\metadata.yaml
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:31 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-08-08 10:06:31 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:48 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:48 — pcc_pipeline — INFO — No model found for today: 20250808
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmpk0q1iq4i\models\model.joblib
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmpk0q1iq4i\models\metadata.yaml
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:48 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmp1y2igkav\models\model.joblib
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmp1y2igkav\models\metadata.yaml
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:06:48 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.nonexistent_mode.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:58 — pcc_pipeline — INFO — No model found for today: 20250808
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmp893db4o8\models\model.joblib
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmp893db4o8\models\metadata.yaml
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:58 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmpi5ia30ap\models\model.joblib
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmpi5ia30ap\models\metadata.yaml
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-08-08 10:06:58 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-08-08 10:06:58 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:06:59 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-08-08 10:06:59 — pcc_pipeline — WARNING — No metadata file found
+2025-08-08 10:06:59 — pcc_pipeline — INFO — Embedding validation complete: 0 valid, 100 dropped
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-08-08 10:07:18 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-08-08 10:07:18 — pcc_pipeline — WARNING — No metadata file found
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Prediction complete: 100 successful, 0 failed.
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Output schema validation passed
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-08-08 10:07:18 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.nonexistent_mode.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Found 3 model folders. Latest: v20250729_092253
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:07:25 — pcc_pipeline — INFO — No model found for today: 20250808
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmpvo860hmx\models\model.joblib
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Downloaded: pcc-models/v20250729_092110/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmpvo860hmx\models\metadata.yaml
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:07:25 — pcc_pipeline — ERROR — No files downloaded from GCS
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Found 4 model folders. Latest: v20251231_235959
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Found model for today: v20250808_120000
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/model.joblib -> C:\Users\aleja\AppData\Local\Temp\tmpls94_x41\models\model.joblib
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Downloaded: pcc-models/v20251231_235959/metadata.yaml -> C:\Users\aleja\AppData\Local\Temp\tmpls94_x41\models\metadata.yaml
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Successfully downloaded 2 files
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Config updated with model metadata
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Schema validated successfully against schemas/input_schema.json
+2025-08-08 10:07:25 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-08-08 10:07:25 — pcc_pipeline — WARNING — Config file src/config/config.dev.yaml not found, falling back to base config.yaml
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Loaded classifier from src/models/model.joblib
+2025-08-08 10:07:26 — pcc_pipeline — WARNING — No metadata file found
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Embedding validation complete: 100 valid, 0 dropped
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Prediction complete: 100 successful, 0 failed.
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Output schema validation passed
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Formatted prediction output with 100 rows. Ready for persistence.
+2025-08-08 10:07:26 — pcc_pipeline — INFO — Schema validated successfully against schemas/output_schema.json

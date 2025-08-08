@@ -139,9 +139,10 @@ class TestModelIngestion:
             return mock_blob
         
         # Mock blobs that will be downloaded
+        # Note: The download function now expects full GCS paths
         mock_blobs = [
-            create_mock_blob("v20250729_092110/model.joblib"),
-            create_mock_blob("v20250729_092110/metadata.yaml"),
+            create_mock_blob("pcc-models/v20250729_092110/model.joblib"),
+            create_mock_blob("pcc-models/v20250729_092110/metadata.yaml"),
         ]
         mock_bucket.list_blobs.return_value = mock_blobs
         
@@ -283,9 +284,10 @@ def test_model_ingestion_integration():
                 return mock_blob
 
             # Mock blobs that will be downloaded
+            # Note: The download function now expects full GCS paths
             mock_download_blobs = [
-                create_mock_download_blob(f"v{future_date}/model.joblib"),
-                create_mock_download_blob(f"v{future_date}/metadata.yaml"),
+                create_mock_download_blob(f"pcc-models/v{future_date}/model.joblib"),
+                create_mock_download_blob(f"pcc-models/v{future_date}/metadata.yaml"),
             ]
             
             # Mock joblib load and file operations

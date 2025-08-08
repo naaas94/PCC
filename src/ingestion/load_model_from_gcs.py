@@ -54,10 +54,10 @@ def get_latest_model_folder(
     model_folders = sorted(model_folders, reverse=True)
     latest_folder = model_folders[0]
     
-    # Return the full path to the latest folder
-    full_path = f"{folder_prefix}/{latest_folder}"
-    logger.info(f"Found {len(model_folders)} model folders. Latest: {full_path}")
-    return full_path
+    # Return just the version string for backward compatibility with tests
+    # e.g., "v20250729_092253" instead of "pcc-models/v20250729_092253"
+    logger.info(f"Found {len(model_folders)} model folders. Latest: {latest_folder}")
+    return latest_folder
 
 
 def check_today_model_exists(
@@ -97,9 +97,8 @@ def check_today_model_exists(
         # Sort by folder name to get the latest one
         today_folders = sorted(today_folders, reverse=True)
         latest_today_folder = today_folders[0]
-        full_path = f"{folder_prefix}/{latest_today_folder}"
-        logger.info(f"Found model for today: {full_path}")
-        return full_path
+        logger.info(f"Found model for today: {latest_today_folder}")
+        return latest_today_folder
     else:
         logger.info(f"No model found for today: {today_date_str}")
         return None
@@ -121,9 +120,14 @@ def download_model_from_gcs(
     # Create local directory if it doesn't exist
     os.makedirs(local_models_dir, exist_ok=True)
     
+    # Construct the full GCS path from the version string
+    # folder_name is now just the version (e.g., "v20250729_092253")
+    # We need the full path (e.g., "pcc-models/v20250729_092253")
+    full_gcs_path = f"{folder_prefix}/{folder_name}"
+    
     # Download all files in the specific folder only
     # Use exact folder prefix to avoid downloading from other folders
-    exact_folder_prefix = f"{folder_name}/"
+    exact_folder_prefix = f"{full_gcs_path}/"
     blobs = bucket.list_blobs(prefix=exact_folder_prefix)
     downloaded_files = []
     

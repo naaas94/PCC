@@ -69,7 +69,8 @@ def test_pipeline_end_to_end(sample_data):
     from postprocessing.format_output import format_predictions
     
     # Test preprocessing
-    df_valid = validate_embeddings(sample_data, debug=True)
+    # Sample data has 584 dimensions, not 588 like BigQuery data
+    df_valid = validate_embeddings(sample_data, expected_dim=584, debug=True)
     assert len(df_valid) > 0
     assert "case_id" in df_valid.columns
     assert "embedding_vector" in df_valid.columns
