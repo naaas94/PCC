@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pcc-manual-run
+  namespace: pcc-system
+  labels:
+    app: pcc-pipeline
+    type: manual-run
+spec:
+  template:
+    metadata:
+      labels:
+        app: pcc-pipeline
+        type: manual-run
+    spec:
+      serviceAccountName: pcc-service-account
+      restartPolicy: Never
+      containers:
+      - name: pcc-manual-pipeline
+        image: pcc-pipeline:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DRY_RUN
+          value: "false"
+        - name: PYTHONPATH
+          value: "/app/src"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/config/gcp-service-account.json"
+        - name: PARTITION_DATE
+          value: "20250101"  # Override this for specific dates
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/src/config/config.yaml
+          subPath: config.yaml
+        - name: secrets-volume
+          mountPath: /app/config/gcp-service-account.json
+          subPath: gcp-service-account.json
+          readOnly: true
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: models-volume
+          mountPath: /app/src/models
+        command:
+        - python
+        - scripts/run_pipeline.py
+        - --partition
+        - "20250101"  # Override this for specific dates
+        - --mode
+        - prod
+        - --force-latest
+      volumes:
+      - name: config-volume
+        configMap:
+          name: pcc-config
+      - name: secrets-volume
+        secret:
+          secretName: pcc-secrets
+      - name: logs-volume
+        emptyDir: {}
+      - name: models-volume
+        emptyDir: {}
+      backoffLimit: 3
+      activeDeadlineSeconds: 3600  # 1 hour timeout

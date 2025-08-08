@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pcc-system
+  labels:
+    name: pcc-system
+    app: pcc-pipeline
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pcc-service-account
+  namespace: pcc-system
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/pcc-pipeline-role

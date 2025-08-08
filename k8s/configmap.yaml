@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pcc-config
+  namespace: pcc-system
+data:
+  config.yaml: |
+    bq:
+      embedding_table: your-project.your-dataset.embedding_table
+      monitoring_table: ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+      output_table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+      source_table: not implemented
+    models:
+      classifier_path: src/models/model.joblib
+      classifier_type: LogisticRegression
+      embedding_model: all-MiniLM-L6-v2 + TF-IDF
+      model_version: v20250729_120642
+      trained_on: ''
+    runtime:
+      dry_run: false
+      mode: prod
+      partition_date: 20250101

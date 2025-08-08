@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  pcc-pipeline:
+    build: .
+    container_name: pcc-pipeline
+    environment:
+      - DRY_RUN=true
+      - PYTHONPATH=/app/src
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/config/service-account.json
+    volumes:
+      - ./logs:/app/logs
+      - ./src/config:/app/config
+      - ./src/models:/app/models
+      - ./tests/fixtures:/app/tests/fixtures
+      # Mount service account if available
+      - ./gcp_service_account.json:/app/config/service-account.json:ro
+    command: ["--sample"]
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  pcc-pipeline-bq:
+    build: .
+    container_name: pcc-pipeline-bq
+    environment:
+      - DRY_RUN=false
+      - PYTHONPATH=/app/src
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/config/service-account.json
+      - PARTITION_DATE=20250101
+    volumes:
+      - ./logs:/app/logs
+      - ./src/config:/app/config
+      - ./src/models:/app/models
+      - ./tests/fixtures:/app/tests/fixtures
+      # Mount service account if available
+      - ./gcp_service_account.json:/app/config/service-account.json:ro
+    command: ["--partition", "20250101", "--mode", "dev"]
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  pcc-daily-run:
+    build: .
+    container_name: pcc-daily-run
+    environment:
+      - DRY_RUN=false
+      - PYTHONPATH=/app/src
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/config/service-account.json
+    volumes:
+      - ./logs:/app/logs
+      - ./src/config:/app/config
+      - ./src/models:/app/models
+      - ./tests/fixtures:/app/tests/fixtures
+      # Mount service account if available
+      - ./gcp_service_account.json:/app/config/service-account.json:ro
+    command: ["python", "scripts/daily_pipeline_run.py", "--mode", "prod"]
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+networks:
+  default:
+    name: pcc-network

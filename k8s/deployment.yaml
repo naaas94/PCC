@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcc-pipeline
+  namespace: pcc-system
+  labels:
+    app: pcc-pipeline
+    version: v1.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pcc-pipeline
+  template:
+    metadata:
+      labels:
+        app: pcc-pipeline
+        version: v1.0.0
+    spec:
+      serviceAccountName: pcc-service-account
+      containers:
+      - name: pcc-pipeline
+        image: pcc-pipeline:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DRY_RUN
+          value: "false"
+        - name: PYTHONPATH
+          value: "/app/src"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/config/gcp-service-account.json"
+        - name: PARTITION_DATE
+          value: "20250101"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/src/config/config.yaml
+          subPath: config.yaml
+        - name: secrets-volume
+          mountPath: /app/config/gcp-service-account.json
+          subPath: gcp-service-account.json
+          readOnly: true
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: models-volume
+          mountPath: /app/src/models
+        livenessProbe:
+          exec:
+            command:
+            - python
+            - -c
+            - "import sys; sys.exit(0)"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - python
+            - -c
+            - "import sys; sys.exit(0)"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        command:
+        - python
+        - scripts/run_pipeline.py
+        - --partition
+        - "20250101"
+        - --mode
+        - prod
+      volumes:
+      - name: config-volume
+        configMap:
+          name: pcc-config
+      - name: secrets-volume
+        secret:
+          secretName: pcc-secrets
+      - name: logs-volume
+        emptyDir: {}
+      - name: models-volume
+        emptyDir: {}
+      restartPolicy: Always
