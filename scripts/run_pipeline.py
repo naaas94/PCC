@@ -103,9 +103,24 @@ def run_pipeline_with_sample_data(force_latest: bool = False, skip_ingestion: bo
     
     # Preprocessing
     print("⚙️  Preprocessing embeddings...")
-    from preprocessing.embed_text import validate_embeddings
-    df_valid = validate_embeddings(df_raw)
+    from preprocessing.embed_text import validate_embeddings, truncate_embeddings_to_model_dimensions
+    
+    # For sample data, use 584 dimensions (model expects 584)
+    # For BigQuery data, use 588 dimensions and then truncate
+    df_valid = validate_embeddings(df_raw, expected_dim=584)
     print(f"   ✓ Validated {len(df_valid)} embeddings")
+    
+    # Only truncate if we have embeddings with more than 584 dimensions
+    if len(df_valid) > 0:
+        sample_embedding = df_valid.iloc[0]['embedding_vector']
+        if len(sample_embedding) > 584:
+            print("🔧 Fixing feature mismatch...")
+            df_valid = truncate_embeddings_to_model_dimensions(df_valid, target_dim=584)
+            print(f"   ✓ Truncated embeddings to 584 dimensions")
+        else:
+            print("   ✓ Embeddings already match model dimensions")
+    else:
+        print("   ⚠️  No valid embeddings found")
     
     # Inference
     print("🤖 Running inference...")
@@ -191,9 +206,13 @@ def run_pipeline_with_bigquery(partition_date: str, mode: str = "dev", force_lat
     logger.info(f"Loaded {len(df_raw)} rows from BigQuery snapshot")
 
     # Preprocessing
-    from preprocessing.embed_text import validate_embeddings
+    from preprocessing.embed_text import validate_embeddings, truncate_embeddings_to_model_dimensions
     df_valid = validate_embeddings(df_raw)
     logger.info(f"Validated {len(df_valid)} embeddings")
+    
+    # Fix feature mismatch by truncating to model dimensions
+    df_valid = truncate_embeddings_to_model_dimensions(df_valid, target_dim=584)
+    logger.info(f"Truncated embeddings to 584 dimensions")
 
     # Inference
     from inference.predict_intent import predict_batch

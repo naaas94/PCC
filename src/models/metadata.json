@@ -1,0 +1,31 @@
+{
+  "model_type": "LogisticRegression",
+  "hyperparameters": {
+    "solver": "liblinear",
+    "penalty": "l2",
+    "max_iter": 2000,
+    "C": 2.406475150015424
+  },
+  "search_method": "random",
+  "search_info": {
+    "method": "random_search",
+    "best_score": 1.0,
+    "n_iterations": 20
+  },
+  "training_samples": 8000,
+  "feature_dimensions": 584,
+  "classes": [
+    "data_deletion",
+    "opt_out",
+    "other",
+    "privacy_request"
+  ],
+  "class_distribution": {
+    "other": 2000,
+    "opt_out": 2000,
+    "data_deletion": 2000,
+    "privacy_request": 2000
+  },
+  "model_version": "v20250730_112340",
+  "training_timestamp": "2025-07-30T11:23:40.501096"
+}

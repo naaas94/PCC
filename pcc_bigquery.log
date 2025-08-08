@@ -142,3 +142,83 @@
 2025-07-30 11:01:38 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '878cbe25-7c89-4b91-9631-475e2f04bb24', 'model_version': 'v20250729_120642', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-07-30T14:01:38.509266+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-07-30T14:01:38.509266+00:00', 'processing_duration_seconds': 0.007485866546630859, 'error_message': None}
 2025-07-30 11:01:39 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
 2025-07-30 11:01:39 — pcc_bigquery — INFO — [BQ] Run ID: 878cbe25-7c89-4b91-9631-475e2f04bb24, Status: success, Cases: 100
+2025-08-08 09:47:56 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:47:59 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:48:05 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:48:05 — pcc_bigquery — INFO — [BQ] Table now contains 400 total rows
+2025-08-08 09:48:09 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:48:09 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:48:12 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:48:12 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '070ca2bb-31ba-48ee-94f1-aebe63a69eab', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:48:12.348115+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:48:12.348115+00:00', 'processing_duration_seconds': 0.003992319107055664, 'error_message': None}
+2025-08-08 09:48:13 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:48:13 — pcc_bigquery — INFO — [BQ] Run ID: 070ca2bb-31ba-48ee-94f1-aebe63a69eab, Status: success, Cases: 100
+2025-08-08 09:50:23 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:50:25 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:50:30 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:50:30 — pcc_bigquery — INFO — [BQ] Table now contains 500 total rows
+2025-08-08 09:50:35 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:50:35 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:50:37 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:50:37 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '6d730e2a-0334-4e94-a1dc-37336a409816', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:50:37.618865+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:50:37.618865+00:00', 'processing_duration_seconds': 0.0037844181060791016, 'error_message': None}
+2025-08-08 09:50:38 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:50:38 — pcc_bigquery — INFO — [BQ] Run ID: 6d730e2a-0334-4e94-a1dc-37336a409816, Status: success, Cases: 100
+2025-08-08 09:51:27 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:51:30 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:51:35 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:51:35 — pcc_bigquery — INFO — [BQ] Table now contains 600 total rows
+2025-08-08 09:51:39 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:51:39 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:51:42 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:51:42 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '53283acb-9103-46f7-9e09-df017f90ca28', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:51:42.390132+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:51:42.390132+00:00', 'processing_duration_seconds': 0.004007577896118164, 'error_message': None}
+2025-08-08 09:51:43 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:51:43 — pcc_bigquery — INFO — [BQ] Run ID: 53283acb-9103-46f7-9e09-df017f90ca28, Status: success, Cases: 100
+2025-08-08 09:52:35 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:52:37 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:52:42 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:52:42 — pcc_bigquery — INFO — [BQ] Table now contains 700 total rows
+2025-08-08 09:52:47 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:52:47 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:52:49 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:52:49 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '6db376f4-ae35-411b-aab6-50221d0d255d', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:52:49.742905+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:52:49.742905+00:00', 'processing_duration_seconds': 0.004854917526245117, 'error_message': None}
+2025-08-08 09:52:50 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:52:50 — pcc_bigquery — INFO — [BQ] Run ID: 6db376f4-ae35-411b-aab6-50221d0d255d, Status: success, Cases: 100
+2025-08-08 09:53:50 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:53:53 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:53:58 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:53:58 — pcc_bigquery — INFO — [BQ] Table now contains 800 total rows
+2025-08-08 09:54:02 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:54:02 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:54:05 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:54:05 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': 'c12f16c6-dffc-4c1c-b517-c409c5fa8597', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:54:05.076805+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:54:05.076805+00:00', 'processing_duration_seconds': 0.004332065582275391, 'error_message': None}
+2025-08-08 09:54:05 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:54:05 — pcc_bigquery — INFO — [BQ] Run ID: c12f16c6-dffc-4c1c-b517-c409c5fa8597, Status: success, Cases: 100
+2025-08-08 09:55:17 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:55:19 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:55:25 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:55:25 — pcc_bigquery — INFO — [BQ] Table now contains 900 total rows
+2025-08-08 09:55:29 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:55:29 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:55:32 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:55:32 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': 'ce446a7f-3573-474e-95e1-21bcaa5cf09e', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:55:32.118389+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:55:32.118389+00:00', 'processing_duration_seconds': 0.0030095577239990234, 'error_message': None}
+2025-08-08 09:55:32 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:55:32 — pcc_bigquery — INFO — [BQ] Run ID: ce446a7f-3573-474e-95e1-21bcaa5cf09e, Status: success, Cases: 100
+2025-08-08 09:56:53 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 09:56:56 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 09:57:04 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 09:57:04 — pcc_bigquery — INFO — [BQ] Table now contains 1000 total rows
+2025-08-08 09:57:08 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 09:57:08 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 09:57:11 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 09:57:11 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '67c376c1-4d15-4b98-b2e7-35aae6ec292d', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T12:57:11.096364+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T12:57:11.096364+00:00', 'processing_duration_seconds': 0.0040094852447509766, 'error_message': None}
+2025-08-08 09:57:11 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 09:57:11 — pcc_bigquery — INFO — [BQ] Run ID: 67c376c1-4d15-4b98-b2e7-35aae6ec292d, Status: success, Cases: 100
+2025-08-08 10:00:24 — pcc_bigquery — INFO — [BQ] Output schema validated successfully
+2025-08-08 10:00:27 — pcc_bigquery — INFO — [BQ] Writing 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output (attempt 1)
+2025-08-08 10:00:32 — pcc_bigquery — INFO — [BQ] Successfully wrote 100 rows to BigQuery table: ales-sandbox-465911.PCC_EPs.pcc_inference_output
+2025-08-08 10:00:32 — pcc_bigquery — INFO — [BQ] Table now contains 1100 total rows
+2025-08-08 10:00:36 — pcc_bigquery — INFO — [BQ] Found 100 records written in the last hour
+2025-08-08 10:00:36 — pcc_bigquery — INFO — [BQ] BigQuery write verification successful
+2025-08-08 10:00:39 — pcc_bigquery — DEBUG — [BQ] Monitoring log schema validated successfully
+2025-08-08 10:00:39 — pcc_bigquery — DEBUG — [BQ] Logging inference run: {'run_id': '615b3822-3d39-4462-988c-e67a74bb829e', 'model_version': 'v20250730_112340', 'embedding_model': 'all-MiniLM-L6-v2', 'partition_date': '2025-01-01', 'runtime_ts': '2025-08-08T13:00:39.220211+00:00', 'status': 'success', 'total_cases': 100, 'passed_validation': 100, 'dropped_cases': 0, 'notes': 'Pipeline run with status: success', 'ingestion_time': '2025-08-08T13:00:39.220211+00:00', 'processing_duration_seconds': 0.0040094852447509766, 'error_message': None}
+2025-08-08 10:00:39 — pcc_bigquery — INFO — [BQ] Inference run logged successfully to ales-sandbox-465911.PCC_EPs.pcc_monitoring_logs
+2025-08-08 10:00:39 — pcc_bigquery — INFO — [BQ] Run ID: 615b3822-3d39-4462-988c-e67a74bb829e, Status: success, Cases: 100
