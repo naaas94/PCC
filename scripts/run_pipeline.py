@@ -341,10 +341,30 @@ def log_pipeline_run(config: dict, partition_date: str, total_cases: int,
         logger.warning(f"Failed to log pipeline run: {e}")
 
 def main():
-    # Add this at the very beginning
+    # Add this debug code at the very beginning
+    import os
+    print("=== STARTUP DEBUG ===")
+    print(f"GCP_SA_JSON exists: {os.environ.get('GCP_SA_JSON') is not None}")
+    print(f"GOOGLE_APPLICATION_CREDENTIALS: {os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')}")
+    
+    if os.environ.get('GCP_SA_JSON'):
+        print(f"GCP_SA_JSON length: {len(os.environ.get('GCP_SA_JSON'))}")
+        print(f"First 100 chars: {os.environ.get('GCP_SA_JSON')[:100]}")
+    
+    # Call setup function
     if not setup_gcp_credentials():
         print("Failed to setup GCP credentials")
         sys.exit(1)
+    
+    # Check if file was created
+    creds_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', '/tmp/gcp-sa.json')
+    if os.path.exists(creds_path):
+        print(f"✓ Credentials file exists at {creds_path}")
+        with open(creds_path, 'r') as f:
+            content = f.read()
+            print(f"File size: {len(content)} characters")
+    else:
+        print(f"❌ Credentials file NOT found at {creds_path}")
     
     parser = argparse.ArgumentParser(description="Run PCC Pipeline")
     parser.add_argument("--mode", default="dev", choices=["dev", "prod"], 
