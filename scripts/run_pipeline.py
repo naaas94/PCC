@@ -19,6 +19,33 @@ from config.config import load_config
 from utils.logger import get_logger
 from utils.schema_validator import validate_schema
 
+def setup_gcp_credentials():
+    """Setup GCP credentials from AWS Secrets Manager"""
+    import os
+    import json
+    
+    gcp_json = os.environ.get('GCP_SA_JSON')
+    print(f"GCP_SA_JSON exists: {gcp_json is not None}")
+    if gcp_json:
+        print(f"First 50 chars: {gcp_json[:50]}...")
+        try:
+            # Parse the JSON string from Secrets Manager
+            credentials_data = json.loads(gcp_json)
+            
+            # Write to the file that GOOGLE_APPLICATION_CREDENTIALS points to
+            creds_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', '/tmp/gcp-sa.json')
+            with open(creds_path, 'w') as f:
+                json.dump(credentials_data, f)
+            
+            print(f"✓ GCP credentials written to {creds_path}")
+            return True
+        except json.JSONDecodeError as e:
+            print(f"❌ Failed to parse GCP credentials JSON: {e}")
+            return False
+    else:
+        print("❌ GCP_SA_JSON environment variable not found")
+        return False
+
 def check_and_ingest_model(force_latest: bool = False, skip_ingestion: bool = False):
     """
     Check for new models and ingest if available.
@@ -314,6 +341,11 @@ def log_pipeline_run(config: dict, partition_date: str, total_cases: int,
         logger.warning(f"Failed to log pipeline run: {e}")
 
 def main():
+    # Add this at the very beginning
+    if not setup_gcp_credentials():
+        print("Failed to setup GCP credentials")
+        sys.exit(1)
+    
     parser = argparse.ArgumentParser(description="Run PCC Pipeline")
     parser.add_argument("--mode", default="dev", choices=["dev", "prod"], 
                        help="Runtime mode")
