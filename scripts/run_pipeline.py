@@ -341,30 +341,60 @@ def log_pipeline_run(config: dict, partition_date: str, total_cases: int,
         logger.warning(f"Failed to log pipeline run: {e}")
 
 def main():
-    # Add this debug code at the very beginning
     import os
+    import json
     print("=== STARTUP DEBUG ===")
-    print(f"GCP_SA_JSON exists: {os.environ.get('GCP_SA_JSON') is not None}")
+    
+    # Check environment variables
+    gcp_json = os.environ.get('GCP_SA_JSON')
+    print(f"GCP_SA_JSON exists: {gcp_json is not None}")
     print(f"GOOGLE_APPLICATION_CREDENTIALS: {os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')}")
     
-    if os.environ.get('GCP_SA_JSON'):
-        print(f"GCP_SA_JSON length: {len(os.environ.get('GCP_SA_JSON'))}")
-        print(f"First 100 chars: {os.environ.get('GCP_SA_JSON')[:100]}")
+    if gcp_json:
+        print(f"GCP_SA_JSON length: {len(gcp_json)}")
+        print(f"First 100 chars: {repr(gcp_json[:100])}")  # Use repr to see exact content
+        
+        # Try to parse it
+        try:
+            parsed = json.loads(gcp_json)
+            print(f"✓ JSON parsed successfully, keys: {list(parsed.keys())}")
+        except Exception as e:
+            print(f"❌ JSON parse error: {e}")
     
     # Call setup function
     if not setup_gcp_credentials():
         print("Failed to setup GCP credentials")
         sys.exit(1)
     
-    # Check if file was created
+    # Verify file after creation
     creds_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', '/tmp/gcp-sa.json')
+    print(f"Checking credentials file at: {creds_path}")
+    
     if os.path.exists(creds_path):
-        print(f"✓ Credentials file exists at {creds_path}")
-        with open(creds_path, 'r') as f:
-            content = f.read()
-            print(f"File size: {len(content)} characters")
+        print(f"✓ File exists")
+        try:
+            with open(creds_path, 'r') as f:
+                content = f.read()
+                print(f"File size: {len(content)} chars")
+                
+            # Try to parse the written file
+            with open(creds_path, 'r') as f:
+                file_json = json.load(f)
+                print(f"✓ File JSON parsed, keys: {list(file_json.keys())}")
+                print(f"Project ID: {file_json.get('project_id', 'MISSING')}")
+                
+        except Exception as e:
+            print(f"❌ Error reading/parsing file: {e}")
     else:
-        print(f"❌ Credentials file NOT found at {creds_path}")
+        print(f"❌ File does not exist")
+    
+    # Test Google credentials directly
+    try:
+        from google.auth import default
+        credentials, project = default()
+        print(f"✓ Google auth default() worked, project: {project}")
+    except Exception as e:
+        print(f"❌ Google auth default() failed: {e}")
     
     parser = argparse.ArgumentParser(description="Run PCC Pipeline")
     parser.add_argument("--mode", default="dev", choices=["dev", "prod"], 
